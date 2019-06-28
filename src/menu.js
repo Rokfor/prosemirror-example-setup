@@ -208,8 +208,8 @@ export function buildMenuItems(schema) {
   if (type = schema.nodes.horizontal_rule) {
     let hr = type
     r.insertHorizontalRule = new MenuItem({
-      title: "Insert horizontal rule",
-      label: "Horizontal rule",
+      title: "Insert Page Break",
+      label: "Page Break",
       enable(state) { return canInsert(state, hr) },
       run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.create())) }
     })
