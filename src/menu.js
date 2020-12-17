@@ -127,7 +127,7 @@ function languageItem(markType, schema) {
         callback(attrs) {
           console.log(attrs)
          
-          view.dispatch(view.state.tr.replaceSelectionWith(schema.text(attrs.language)))
+          //view.dispatch(view.state.tr.replaceSelectionWith(schema.text(attrs.language)))
           toggleMark(markType, attrs)(view.state, view.dispatch)
           view.focus()
         }
