@@ -258,11 +258,28 @@ export function buildMenuItems(schema) {
     })
   }
 
-  if (type = schema.nodes.footnote)
+  /*if (type = schema.nodes.footnote)
     r.makeFootnote = blockTypeItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
     })
+  */
+  if (type = schema.nodes.footnote) {
+    let fn = type
+    r.makeFootnote = new MenuItem({
+      title: "Insert Footnote",
+      label: "Footnote",
+      enable(state) { return canInsert(state, fn) },
+      run(state, dispatch) {
+        let {from, to} = state.selection
+        let attrs = state.doc.textBetween(from, to, " ");
+        dispatch(state.tr.replaceSelectionWith(fn.createAndFill(attrs)))
+      }
+    })
+  }
+
+
+
   if (type = schema.nodes.latex)
     r.makeLaTex = wrapItem(type, {
       title: "Insert LaTex Source",
