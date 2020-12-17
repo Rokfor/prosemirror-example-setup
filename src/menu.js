@@ -98,7 +98,7 @@ function linkItem(markType) {
   })
 }
 
-function languageItem(markType, schema) {
+function languageItem(markType) {
 
   
   return new MenuItem({
@@ -125,13 +125,8 @@ function languageItem(markType, schema) {
           )
         },
         callback(attrs) {
-
-          const node = schema.text({value: attrs.language});
-          let last = view.state.tr.replaceSelectionWith(node);
-          console.log(last, node);
-          view.state.tr.addMark($from.pos, $to.pos, markType.create(attrs))
-          
-          view.dispatch()
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language, [view.state.schema.mark("language")]) ) 
+          view.dispatch(tr)
           view.focus()
         }
       })
@@ -306,7 +301,7 @@ export function buildMenuItems(schema) {
   if (type = schema.marks.reference)
     r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
   if (type = schema.marks.language)
-    r.toggleLanguage = languageItem(type, schema)
+    r.toggleLanguage = languageItem(type)
 
 
 
