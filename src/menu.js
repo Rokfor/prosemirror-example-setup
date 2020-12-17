@@ -126,7 +126,7 @@ function languageItem(markType, schema) {
         },
         callback(attrs) {
 
-          const node = schema.nodes.text.create({value: attrs.language});
+          const node = schema.nodes.text({value: attrs.language});
           let last = view.state.tr.replaceSelectionWith(node);
           console.log(last, node);
           view.state.tr.addMark($from.pos, $to.pos, markType.create(attrs))
