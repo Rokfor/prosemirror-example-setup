@@ -157,6 +157,10 @@ function wrapListItem(nodeType, options) {
 //   : A dropdown containing the items for making the current
 //     textblock a paragraph, code block, or heading.
 //
+// **`writerMenu`**`: Dropdown`
+//   : A dropdown containing the items special to rokfor writer
+//     marks, references and other containers
+//
 // **`fullMenu`**`: [[MenuElement]]`
 //   : An array of arrays of menu elements for use as the full menu
 //     for, for example the [menu bar](https://github.com/prosemirror/prosemirror-menu#user-content-menubar).
@@ -215,16 +219,60 @@ export function buildMenuItems(schema) {
     })
   }
 
+  if (type = schema.nodes.footnote)
+    r.makeFootnote = blockTypeItem(type, {
+      title: "Insert Footnote",
+      label: "Footnote"
+    })
+  if (type = schema.nodes.latex)
+    r.makeLaTex = blockTypeItem(type, {
+      title: "Insert LaTex Source",
+      label: "LaTex"
+    })
+  if (type = schema.nodes.comment)
+    r.makeComment = blockTypeItem(type, {
+      title: "Insert Comment",
+      label: "Comment"
+    })
+  if (type = schema.nodes.paragraphalternate)
+    r.makeAlternateParagraph = blockTypeItem(type, {
+      title: "Insert alternate Paragraph",
+      label: "Alternate Paragraph"
+    })
+
+  if (type = schema.marks.index)
+    r.toggleIndex = markItem(type, {title: "Add Index", icon: icons.index})
+  if (type = schema.marks.mark)
+    r.toggleMark = markItem(type, {title: "Add Marker", icon: icons.mark})
+  if (type = schema.marks.reference)
+    r.toggleReference = markItem(type, {title: "Add Reference", icon: icons.reference})
+  if (type = schema.marks.language)
+    r.toggleLanguage = markItem(type, {title: "Add Language", icon: icons.language})
+
+
+
+
   let cut = arr => arr.filter(x => x)
   r.insertMenu = new Dropdown(cut([r.insertImage, r.insertHorizontalRule]), {label: "Insert"})
   r.typeMenu = new Dropdown(cut([r.makeParagraph, r.makeCodeBlock, r.makeHead1 && new DropdownSubmenu(cut([
     r.makeHead1, r.makeHead2, r.makeHead3, r.makeHead4, r.makeHead5, r.makeHead6
   ]), {label: "Heading"})]), {label: "Type..."})
 
+  r.writerMenu = new Dropdown(cut([
+    r.makeFootnote, 
+    r.makeLaTex,
+    r.makeComment,
+    r.makeAlternateParagraph,
+    r.toggleIndex,
+    r.toggleMark,
+    r.toggleReference,
+    r.toggleLanguage 
+  ]), {label: "Special"})
+
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
   r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
                       liftItem, selectParentNodeItem])]
-  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu]], [[undoItem, redoItem]], r.blockMenu)
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu]], [[undoItem, redoItem]], r.blockMenu, r.writerMenu)
 
   return r
 }
