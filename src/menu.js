@@ -278,12 +278,13 @@ export function buildMenuItems(schema) {
     r.toggleLanguage 
   ]), {label: "Special"})
 
-  console.log('created writer menu', r.writerMenu);
 
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
   r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
                       liftItem, selectParentNodeItem])]
   r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu]], [[undoItem, redoItem]], r.blockMenu, r.writerMenu)
+
+  console.log('created writer full menu', r.writerMenu);
 
   return r
 }
