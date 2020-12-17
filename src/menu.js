@@ -259,7 +259,7 @@ export function buildMenuItems(schema) {
   }
 
   if (type = schema.nodes.footnote)
-    r.makeFootnote = wrapItem(type, {
+    r.makeFootnote = blockTypeItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
     })
