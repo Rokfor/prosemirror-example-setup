@@ -127,8 +127,8 @@ function languageItem(markType) {
         callback(attrs) {
           //toggleMark(markType, attrs)
           let tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language)) 
-          tr.addStoredMark(markType.create(attrs))
-          view.dispatch()
+          view.state.tr.addMark(tr.selection.$from.pos, tr.selection.$to.pos, markType.create(attrs))
+
           view.focus()
         }
       })
