@@ -103,6 +103,7 @@ function languageItem(markType) {
   
   return new MenuItem({
     title: "Language",
+    label: "Set Language",
     icon: icons.language,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
