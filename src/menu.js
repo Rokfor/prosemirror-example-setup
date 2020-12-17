@@ -125,7 +125,7 @@ function languageItem(markType) {
           )
         },
         callback(attrs) {
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language, [view.state.schema.mark("language")]) ) 
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language, [view.state.schema.mark(markType)]) ) 
           view.dispatch(tr)
           view.focus()
         }
