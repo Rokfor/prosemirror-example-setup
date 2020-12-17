@@ -114,17 +114,18 @@ function languageItem(markType) {
       openPrompt({
         title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
         fields: {
-          language: new SelectField(
-            [
+          language: new SelectField({
+            options: [
               {value: 'ngerman',  label: 'Deutsch'},
               {value: 'french',   label: 'Français'},
               {value: 'italian',  label: 'Italiano'},
               {value: 'arabic',   label: 'Arabic'},
               {value: 'english',  label: 'English'}
-            ]
+            ]}
           )
         },
         callback(attrs) {
+          console.log(attrs)
           const textNode = schema.text(attrs.fields.language.value)
           view.dispatch(view.state.tr.replaceSelectionWith(node.create(null, textNode)))
           toggleMark(markType, attrs)(view.state, view.dispatch)
