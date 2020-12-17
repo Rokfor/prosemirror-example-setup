@@ -127,7 +127,7 @@ function languageItem(markType, schema) {
         callback(attrs) {
           console.log(attrs)
          
-          //view.dispatch(view.state.tr.replaceSelectionWith(schema.text(attrs.language)))
+          view.state.tr.replaceSelectionWith(schema.text.createAndFill(attrs.language))
           toggleMark(markType, attrs)(view.state, view.dispatch)
           view.focus()
         }
@@ -259,7 +259,7 @@ export function buildMenuItems(schema) {
   }
 
   if (type = schema.nodes.footnote)
-    r.makeFootnote = blockTypeItem(type, {
+    r.makeFootnote = wrapItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
     })
