@@ -126,8 +126,8 @@ function languageItem(markType, schema) {
         },
         callback(attrs) {
           console.log(attrs)
-          const textNode = schema.text(attrs.language)
-          view.dispatch(view.state.tr.replaceSelectionWith(node.create(null, textNode)))
+         
+          view.dispatch(view.state.tr.replaceSelectionWith(schema.text(attrs.language)))
           toggleMark(markType, attrs)(view.state, view.dispatch)
           view.focus()
         }
@@ -258,13 +258,13 @@ export function buildMenuItems(schema) {
     })
   }
 
-  /*if (type = schema.nodes.footnote)
+  if (type = schema.nodes.footnote)
     r.makeFootnote = blockTypeItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
     })
-  */
-  if (type = schema.nodes.footnote) {
+  
+  /*if (type = schema.nodes.footnote) {
     let fn = type
     r.makeFootnote = new MenuItem({
       title: "Insert Footnote",
@@ -276,7 +276,7 @@ export function buildMenuItems(schema) {
         dispatch(state.tr.replaceSelectionWith(fn.createAndFill(attrs)))
       }
     })
-  }
+  }*/
 
 
 
