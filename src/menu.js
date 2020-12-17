@@ -220,22 +220,22 @@ export function buildMenuItems(schema) {
   }
 
   if (type = schema.nodes.footnote)
-    r.makeFootnote = blockTypeItem(type, {
+    r.makeFootnote = wrapItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
     })
   if (type = schema.nodes.latex)
-    r.makeLaTex = blockTypeItem(type, {
+    r.makeLaTex = wrapItem(type, {
       title: "Insert LaTex Source",
       label: "LaTex"
     })
   if (type = schema.nodes.comment)
-    r.makeComment = blockTypeItem(type, {
+    r.makeComment = wrapItem(type, {
       title: "Insert Comment",
       label: "Comment"
     })
   if (type = schema.nodes.paragraphalternate)
-    r.makeAlternateParagraph = blockTypeItem(type, {
+    r.makeAlternateParagraph = wrapItem(type, {
       title: "Insert alternate Paragraph",
       label: "Alternate Paragraph"
     })
