@@ -3,7 +3,7 @@ import {wrapItem, blockTypeItem, Dropdown, DropdownSubmenu, joinUpItem, liftItem
 import {NodeSelection} from "prosemirror-state"
 import {toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
-import {TextField, openPrompt} from "./prompt"
+import {TextField, SelectField, openPrompt} from "./prompt"
 
 // Helpers to create specific types of items
 
