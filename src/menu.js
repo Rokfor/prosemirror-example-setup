@@ -98,6 +98,43 @@ function linkItem(markType) {
   })
 }
 
+function languageItem(markType) {
+
+  
+  return new MenuItem({
+    title: "Language",
+    icon: icons.language,
+    active(state) { return markActive(state, markType) },
+    run(state, dispatch, view) {
+      if (markActive(state, markType)) {
+        toggleMark(markType)(state, dispatch)
+        return true
+      }
+      openPrompt({
+        title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
+        fields: {
+          language: new SelectField(
+            [
+              {value: 'ngerman',  label: 'Deutsch'},
+              {value: 'french',   label: 'Français'},
+              {value: 'italian',  label: 'Italiano'},
+              {value: 'arabic',   label: 'Arabic'},
+              {value: 'english',  label: 'English'}
+            ]
+          )
+        },
+        callback(attrs) {
+          const textNode = schema.text(attrs.fields.language.value)
+          view.dispatch(view.state.tr.replaceSelectionWith(node.create(null, textNode)))
+          toggleMark(markType, attrs)(view.state, view.dispatch)
+          view.focus()
+        }
+      })
+    }
+  })
+}
+
+
 function wrapListItem(nodeType, options) {
   return cmdItem(wrapInList(nodeType, options.attrs), options)
 }
@@ -236,18 +273,18 @@ export function buildMenuItems(schema) {
     })
   if (type = schema.nodes.paragraphalternate)
     r.makeAlternateParagraph = wrapItem(type, {
-      title: "Insert alternate Paragraph",
-      label: "Alternate Paragraph"
+      title: "Insert alternate Style",
+      label: "Alternate Style"
     })
 
   if (type = schema.marks.index)
-    r.toggleIndex = markItem(type, {title: "Add Index", icon: icons.index})
+    r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
-    r.toggleMark = markItem(type, {title: "Add Marker", icon: icons.mark})
+    r.toggleMark = markItem(type, {title: "Mark", icon: icons.mark})
   if (type = schema.marks.reference)
-    r.toggleReference = markItem(type, {title: "Add Reference", icon: icons.reference})
+    r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
   if (type = schema.marks.language)
-    r.toggleLanguage = markItem(type, {title: "Add Language", icon: icons.language})
+    r.toggleLanguage = languageItem(type)
 
 
 
