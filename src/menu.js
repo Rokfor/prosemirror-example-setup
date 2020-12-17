@@ -253,10 +253,19 @@ export function buildMenuItems(schema) {
 
 
   let cut = arr => arr.filter(x => x)
-  r.insertMenu = new Dropdown(cut([r.insertImage, r.insertHorizontalRule]), {label: "Insert"})
-  r.typeMenu = new Dropdown(cut([r.makeParagraph, r.makeCodeBlock, r.makeHead1 && new DropdownSubmenu(cut([
+  
+  r.insertMenu = new Dropdown(
+    cut([r.insertImage, r.insertHorizontalRule]), 
+    {label: "Insert"}
+  )
+  
+  r.typeMenu = new Dropdown(
+    cut([r.makeParagraph, r.makeCodeBlock, r.makeHead1 && new DropdownSubmenu(cut([
     r.makeHead1, r.makeHead2, r.makeHead3, r.makeHead4, r.makeHead5, r.makeHead6
-  ]), {label: "Heading"})]), {label: "Type..."})
+    ]), 
+    {label: "Heading"})]), 
+    {label: "Type..."}
+  )
 
   r.writerMenu = new Dropdown(cut([
     r.makeFootnote, 
