@@ -98,6 +98,39 @@ function linkItem(markType) {
   })
 }
 
+function languageItem(nodeType) {
+  return new MenuItem({
+    title: "Language",
+    label: "Set Language",
+    icon: icons.language,
+    enable(state) { return canInsert(state, nodeType) },
+    run(state, _, view) {
+      let {from, to} = state.selection, attrs = null
+      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
+        attrs = state.selection.node.attrs
+      openPrompt({
+        title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
+        fields: {
+          language: new SelectField({
+            options: [
+              {value: 'ngerman',  label: 'Deutsch'},
+              {value: 'french',   label: 'Français'},
+              {value: 'italian',  label: 'Italiano'},
+              {value: 'arabic',   label: 'Arabic'},
+              {value: 'english',  label: 'English'}
+            ]}
+          )
+        },
+        callback(attrs) {
+          view.dispatch(view.state.tr.replaceSelectionWith(nodeType.createAndFill(attrs)))
+          view.focus()
+        }
+      })
+    }
+  })
+}
+
+/*
 function languageItem(markType) {
 
   
@@ -137,7 +170,7 @@ function languageItem(markType) {
     }
   })
 }
-
+*/
 
 function wrapListItem(nodeType, options) {
   return cmdItem(wrapInList(nodeType, options.attrs), options)
@@ -298,14 +331,16 @@ export function buildMenuItems(schema) {
       label: "Alternate Style"
     })
 
+  if (type = schema.nodex.language)
+    r.toggleLanguage = languageItem(type)
+
   if (type = schema.marks.index)
     r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
     r.toggleMark = markItem(type, {title: "Mark", icon: icons.mark})
   if (type = schema.marks.reference)
     r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
-  if (type = schema.marks.language)
-    r.toggleLanguage = languageItem(type)
+
 
 
 
