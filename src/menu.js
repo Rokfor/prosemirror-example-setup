@@ -127,7 +127,7 @@ function languageItem(markType) {
         callback(attrs) {
           //toggleMark(markType, attrs)
           toggleMark(markType, attrs)(view.state, view.dispatch)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language)) 
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text('inserted')) 
           //console.log(tr.selection.$from.pos, tr.selection.$to.pos, tr.selection, markType)
           //view.state.tr.addMark(tr.selection.$from.pos, tr.selection.$from.pos + attrs.language.length, markType.create(attrs))
           view.dispatch(tr)
