@@ -331,7 +331,7 @@ export function buildMenuItems(schema) {
       label: "Alternate Style"
     })
 
-  if (type = schema.nodex.language)
+  if (type = schema.node.language)
     r.toggleLanguage = languageItem(type)
 
   if (type = schema.marks.index)
