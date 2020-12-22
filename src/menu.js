@@ -340,6 +340,8 @@ export function buildMenuItems(schema) {
     r.toggleMark = markItem(type, {title: "Mark", icon: icons.mark})
   if (type = schema.marks.reference)
     r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
+    if (type = schema.marks.fn)
+    r.toggleFn = markItem(type, {title: "Inline Footnote", icon: icons.fn})
 
 
 
@@ -368,6 +370,7 @@ export function buildMenuItems(schema) {
     r.toggleIndex,
     r.toggleMark,
     r.toggleReference,
+    r.toggleFn,
     r.toggleLanguage 
   ]), {label: "Special"})
 
