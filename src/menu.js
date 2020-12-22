@@ -147,7 +147,7 @@ function addMarker(markType) {
       openPrompt({
         title: "Add a marker for cross references.",
         fields: {
-          src: new TextField({label: "Name", required: true, value: attrs && attrs.src}),
+          src: new TextField({label: "Name", required: true}),
         },
         callback(attrs) {
           toggleMark(markType, attrs)(view.state, view.dispatch)
