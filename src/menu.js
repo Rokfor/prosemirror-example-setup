@@ -98,31 +98,6 @@ function linkItem(markType) {
   })
 }
 
-function bibliographyItem(nodeType) {
-  return new MenuItem({
-    title: "Add bibliographical reference",
-    label: "Literature",
-    icon: icons.literature,
-    enable(state) { return canInsert(state, nodeType) },
-    run(state, _, view) {
-      let {from, to} = state.selection, attrs = null
-      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
-        attrs = state.selection.node.attrs
-      openPrompt({
-        title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
-        fields: {
-          reference: new SelectField({options: document.bibTex}),
-          pre: new TextField({label: "Pre-Text"}),
-          post: new TextField({label: "Post-Text"}),
-        },
-        callback(attrs) {
-          view.dispatch(view.state.tr.replaceSelectionWith(nodeType.createAndFill(attrs)))
-          view.focus()
-        }
-      })
-    }
-  })
-}
 
 function languageItem(nodeType) {
   return new MenuItem({
@@ -177,6 +152,36 @@ function addReference(markType) {
         callback(attrs) {
           toggleMark(markType, attrs)(view.state, view.dispatch)
           const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference)) 
+          view.dispatch(tr)
+          view.focus()
+        }
+      })
+    }
+  })
+}
+
+
+function bibliographyItem(markType) {
+  return new MenuItem({
+    title: "Add bibliographical reference",
+    label: "Literature",
+    icon: icons.literature,
+    active(state) { return markActive(state, markType) },
+    run(state, _, view) {
+      if (markActive(state, markType)) {
+        toggleMark(markType)(state, dispatch)
+        return true
+      }
+      openPrompt({
+        title: "Add literature reference",
+        fields: {
+          reference: new SelectField({options: document.bibTex}),
+          pre: new TextField({label: "Pre-Text"}),
+          post: new TextField({label: "Post-Text"}),
+        },
+        callback(attrs) {
+          toggleMark(markType, attrs)(view.state, view.dispatch)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
           view.dispatch(tr)
           view.focus()
         }
