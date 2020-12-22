@@ -385,9 +385,6 @@ export function buildMenuItems(schema) {
   if (type = schema.nodes.language)
     r.toggleLanguage = languageItem(type)
 
-  if (type = schema.nodes.bibliography)
-    r.toggleBibliography = bibliographyItem(type)
-
   if (type = schema.marks.index)
     r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
@@ -396,7 +393,8 @@ export function buildMenuItems(schema) {
     r.toggleReference = addReference(type)
   if (type = schema.marks.fn)
     r.toggleFn = markItem(type, {title: "Inline Footnote", icon: icons.fn})
-
+  if (type = schema.marks.bibliography)
+    r.toggleBibliography = bibliographyItem(type)
 
 
 
