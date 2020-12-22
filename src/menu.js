@@ -380,6 +380,9 @@ export function buildMenuItems(schema) {
   if (type = schema.nodes.language)
     r.toggleLanguage = languageItem(type)
 
+  if (type = schema.nodes.bibliography)
+    r.toggleBibliography = bibliographyItem(type)
+
   if (type = schema.marks.index)
     r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
@@ -417,7 +420,8 @@ export function buildMenuItems(schema) {
     r.toggleMark,
     r.toggleReference,
     r.toggleFn,
-    r.toggleLanguage 
+    r.toggleLanguage,
+    r.toggleBibliography 
   ]), {label: "Special"})
 
 
