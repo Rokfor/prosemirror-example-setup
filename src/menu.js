@@ -178,7 +178,7 @@ function addMarker(markType) {
         },
         callback(attrs) {
           document.marks = document.marks || [];
-          if (document.marks.indexOf(attrs.src) === -1) {
+          if (document.marks.filter(x => x.value === attrs.src).length === 0) {
             document.marks.push({value: attrs.src,  label: attrs.src});
             toggleMark(markType, attrs)(view.state, view.dispatch)
             const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
