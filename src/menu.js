@@ -130,10 +130,37 @@ function languageItem(nodeType) {
   })
 }
 
+function addReference(markType) {
+  return new MenuItem({
+    title: "Reference",
+    label: "Add Reference",
+    icon: icons.reference,
+    active(state) { return markActive(state, markType) },
+    run(state, dispatch, view) {
+      if (markActive(state, markType)) {
+        toggleMark(markType)(state, dispatch)
+        return true
+      }
+      openPrompt({
+        title: "Add a cross reference to a marker.",
+        fields: {
+          reference: new SelectField({
+            options: document.marks || []}
+          )
+        },
+        callback(attrs) {
+          toggleMark(markType, attrs)(view.state, view.dispatch)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference)) 
+          view.dispatch(tr)
+          view.focus()
+        }
+      })
+    }
+  })
+}
+
 
 function addMarker(markType) {
-
-  
   return new MenuItem({
     title: "Mark",
     label: "Add Marker",
@@ -150,10 +177,14 @@ function addMarker(markType) {
           src: new TextField({label: "Name", required: true}),
         },
         callback(attrs) {
-          toggleMark(markType, attrs)(view.state, view.dispatch)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
-          view.dispatch(tr)
-          view.focus()
+          document.marks = document.marks || [];
+          if (document.marks.indexOf(attrs.src) === -1) {
+            document.marks.push({value: attrs.src,  label: attrs.src});
+            toggleMark(markType, attrs)(view.state, view.dispatch)
+            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
+            view.dispatch(tr)
+            view.focus()
+          }
         }
       })
     }
