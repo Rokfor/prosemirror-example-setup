@@ -130,14 +130,14 @@ function languageItem(nodeType) {
   })
 }
 
-/*
-function languageItem(markType) {
+
+function addMarker(markType) {
 
   
   return new MenuItem({
-    title: "Language",
-    label: "Set Language",
-    icon: icons.language,
+    title: "Mark",
+    label: "Add Marker",
+    icon: icons.mark,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
       if (markActive(state, markType)) {
@@ -145,24 +145,13 @@ function languageItem(markType) {
         return true
       }
       openPrompt({
-        title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
+        title: "Add a marker for cross references.",
         fields: {
-          language: new SelectField({
-            options: [
-              {value: 'ngerman',  label: 'Deutsch'},
-              {value: 'french',   label: 'Français'},
-              {value: 'italian',  label: 'Italiano'},
-              {value: 'arabic',   label: 'Arabic'},
-              {value: 'english',  label: 'English'}
-            ]}
-          )
+          src: new TextField({label: "Name", required: true, value: attrs && attrs.src}),
         },
         callback(attrs) {
-          //toggleMark(markType, attrs)
           toggleMark(markType, attrs)(view.state, view.dispatch)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.language)) 
-          //console.log(tr.selection.$from.pos, tr.selection.$to.pos, tr.selection, markType)
-          //view.state.tr.addMark(tr.selection.$from.pos, tr.selection.$from.pos + attrs.language.length, markType.create(attrs))
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
           view.dispatch(tr)
           view.focus()
         }
@@ -170,7 +159,7 @@ function languageItem(markType) {
     }
   })
 }
-*/
+
 
 function wrapListItem(nodeType, options) {
   return cmdItem(wrapInList(nodeType, options.attrs), options)
@@ -337,7 +326,7 @@ export function buildMenuItems(schema) {
   if (type = schema.marks.index)
     r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
-    r.toggleMark = markItem(type, {title: "Mark", icon: icons.mark})
+    r.toggleMark = addMarker(type)
   if (type = schema.marks.reference)
     r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
   if (type = schema.marks.fn)
