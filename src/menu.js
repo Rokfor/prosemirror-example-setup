@@ -273,8 +273,8 @@ export function buildMenuItems(schema) {
     })
   if (type = schema.nodes.code_block)
     r.makeCodeBlock = blockTypeItem(type, {
-      title: "Change to code block",
-      label: "Code"
+      title: "Change to monospaced block",
+      label: "Monospaced"
     })
   if (type = schema.nodes.heading)
     for (let i = 1; i <= 10; i++)
