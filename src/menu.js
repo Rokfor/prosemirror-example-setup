@@ -98,10 +98,36 @@ function linkItem(markType) {
   })
 }
 
+function bibliographyItem(nodeType) {
+  return new MenuItem({
+    title: "Add bibliographical reference",
+    label: "Literature",
+    icon: icons.literature,
+    enable(state) { return canInsert(state, nodeType) },
+    run(state, _, view) {
+      let {from, to} = state.selection, attrs = null
+      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
+        attrs = state.selection.node.attrs
+      openPrompt({
+        title: "Change the language for the rest of this document. This affects hyphenation and language specific typesetting.",
+        fields: {
+          reference: new SelectField({options: document.bibTex}),
+          pre: new TextField({label: "Pre-Text"}),
+          post: new TextField({label: "Post-Text"}),
+        },
+        callback(attrs) {
+          view.dispatch(view.state.tr.replaceSelectionWith(nodeType.createAndFill(attrs)))
+          view.focus()
+        }
+      })
+    }
+  })
+}
+
 function languageItem(nodeType) {
   return new MenuItem({
-    title: "Language",
-    label: "Set Language",
+    title: "Set Language",
+    label: "Language",
     icon: icons.language,
     enable(state) { return canInsert(state, nodeType) },
     run(state, _, view) {
@@ -132,8 +158,8 @@ function languageItem(nodeType) {
 
 function addReference(markType) {
   return new MenuItem({
-    title: "Reference",
-    label: "Add Reference",
+    title: "Add a cross reference",
+    label: "Cross reference",
     icon: icons.reference,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
@@ -142,7 +168,7 @@ function addReference(markType) {
         return true
       }
       openPrompt({
-        title: "Add a cross reference to a marker.",
+        title: "Add a cross reference pointing to a mark.",
         fields: {
           reference: new SelectField({
             options: document.marks || []}
@@ -162,8 +188,8 @@ function addReference(markType) {
 
 function addMarker(markType) {
   return new MenuItem({
-    title: "Mark",
-    label: "Add Marker",
+    title: "Add marker for a cross reference",
+    label: "Marker",
     icon: icons.mark,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
