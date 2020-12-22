@@ -359,7 +359,7 @@ export function buildMenuItems(schema) {
   if (type = schema.marks.mark)
     r.toggleMark = addMarker(type)
   if (type = schema.marks.reference)
-    r.toggleReference = markItem(type, {title: "Reference", icon: icons.reference})
+    r.toggleReference = addReference(type)
   if (type = schema.marks.fn)
     r.toggleFn = markItem(type, {title: "Inline Footnote", icon: icons.fn})
 
