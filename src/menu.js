@@ -168,14 +168,12 @@ function bibliographyItem(markType) {
     icon: icons.literature,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
-      /*if (markActive(state, markType)) {
+      let {from, to} = state.selection, attrs = null      
+      if (markActive(state, markType)) {
         toggleMark(markType)(state, dispatch)
-        return true
+        if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
+          attrs = state.selection.node.attrs
       }
-      */
-      let {from, to} = state.selection, attrs = null
-      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
-        attrs = state.selection.node.attrs
 
       openPrompt({
         title: "Add literature reference",
