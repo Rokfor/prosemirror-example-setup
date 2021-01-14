@@ -167,17 +167,22 @@ function bibliographyItem(markType) {
     label: "Literature",
     icon: icons.literature,
     active(state) { return markActive(state, markType) },
-    run(state, _, view) {
-      if (markActive(state, markType)) {
+    run(state, dispatch, view) {
+      /*if (markActive(state, markType)) {
         toggleMark(markType)(state, dispatch)
         return true
       }
+      */
+      let {from, to} = state.selection, attrs = null
+      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType)
+        attrs = state.selection.node.attrs
+
       openPrompt({
         title: "Add literature reference",
         fields: {
-          reference: new SelectField({options: document.bibTex}),
-          pre: new TextField({label: "Pre-Text"}),
-          post: new TextField({label: "Post-Text"}),
+          reference: new SelectField({options: document.bibTex, value: attrs && attrs.reference}),
+          pre: new TextField({label: "Pre-Text", value: attrs && attrs.pre}),
+          post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
         },
         callback(attrs) {
           toggleMark(markType, attrs)(view.state, view.dispatch)
