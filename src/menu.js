@@ -332,10 +332,11 @@ export function buildMenuItems(schema) {
     })
 
   if (type = schema.nodes.description_list)
-    r.wrapDescriptionList = wrapListItem(type, {
+    r.wrapDescriptionList = blockTypeItem(type, {
       title: "Wrap in description list",
       icon: icons.descriptionList
     })
+
   if (type = schema.nodes.description_term)
     r.makeDescriptionTermBlock = blockTypeItem(type, {
       title: "Change to description term",
@@ -457,8 +458,8 @@ export function buildMenuItems(schema) {
     r.wrapDescriptionList,
     r.makeDescriptionTermBlock,
     r.makeDescriptionValueBlock
-  ]), {label: "Descriptive Lists"}); 
-  
+  ]), {label: "Descriptions"}); 
+
   r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu, r.descriptionMenu]], [[undoItem, redoItem]], r.blockMenu)
   return r
 }
