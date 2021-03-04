@@ -334,7 +334,7 @@ export function buildMenuItems(schema) {
   if (type = schema.nodes.description_list)
     r.wrapDescriptionList = wrapListItem(type, {
       title: "Wrap in description list",
-      icon: icons.descriptionList
+      icon: icons.orderedList
     })
     
   /*if (type = schema.nodes.description_term)
