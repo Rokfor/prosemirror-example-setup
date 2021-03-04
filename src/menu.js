@@ -330,6 +330,25 @@ export function buildMenuItems(schema) {
       title: "Change to monospaced block",
       label: "Monospaced"
     })
+
+  if (type = schema.nodes.description_list)
+    r.wrapDescriptionList = wrapListItem(type, {
+      title: "Wrap in description list",
+      icon: icons.descriptionList
+    })
+  if (type = schema.nodes.description_term)
+    r.makeDescriptionTermBlock = blockTypeItem(type, {
+      title: "Change to description term",
+      label: "Description Term"
+    })
+  if (type = schema.nodes.description_value)
+    r.makeDescriptionValueBlock = blockTypeItem(type, {
+      title: "Change to description value",
+      label: "Description Value"
+    })    
+
+    
+
   if (type = schema.nodes.heading)
     for (let i = 1; i <= 10; i++)
       r["makeHead" + i] = blockTypeItem(type, {
@@ -434,6 +453,12 @@ export function buildMenuItems(schema) {
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
   r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
                       liftItem, selectParentNodeItem])]
-  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu]], [[undoItem, redoItem]], r.blockMenu)
+  r.descriptionMenu = new Dropdown(cut([
+    r.wrapDescriptionList,
+    r.makeDescriptionTermBlock,
+    r.makeDescriptionValueBlock
+  ]), {label: "Descriptive Lists"}); 
+  
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu, r.descriptionMenu]], [[undoItem, redoItem]], r.blockMenu)
   return r
 }
