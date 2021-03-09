@@ -462,6 +462,6 @@ export function buildMenuItems(schema) {
   ]), {label: "Descriptions"});
   
 
-  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu]], [[undoItem, redoItem]], r.blockMenu, r.descriptionMenu)
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu, r.descriptionMenu]], [[undoItem, redoItem]], r.blockMenu)
   return r
 }
