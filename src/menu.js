@@ -337,7 +337,7 @@ export function buildMenuItems(schema) {
       icon: icons.orderedList
     })
     
-  /*if (type = schema.nodes.description_term)
+  if (type = schema.nodes.description_term)
     r.makeDescriptionTermBlock = blockTypeItem(type, {
       title: "Change to description term",
       label: "Description Term"
@@ -347,7 +347,7 @@ export function buildMenuItems(schema) {
       title: "Change to description value",
       label: "Description Value"
     })    
-*/
+
     
 
   if (type = schema.nodes.heading)
@@ -452,15 +452,16 @@ export function buildMenuItems(schema) {
 
 
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
-  r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, r.wrapDescriptionList, joinUpItem,
+  r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
                       liftItem, selectParentNodeItem])]
-  /*r.descriptionMenu = new Dropdown(cut([
+  
+  r.descriptionMenu = new Dropdown(cut([
     r.wrapDescriptionList,
     r.makeDescriptionTermBlock,
     r.makeDescriptionValueBlock
-  ]), {label: "Descriptions"}); */
+  ]), {label: "Descriptions"});
   
 
-  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu]], [[undoItem, redoItem]], r.blockMenu)
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu]], [[undoItem, redoItem]], r.blockMenu, r.descriptionMenu)
   return r
 }
