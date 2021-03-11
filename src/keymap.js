@@ -87,15 +87,11 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-[", liftListItem(type))
     bind("Mod-]", sinkListItem(type))
   }
-  if (type = schema.nodes.description_term) {
-    bind("Enter", (state, dispatch) => {
-      dispatch(state.tr.replaceSelectionWith(schema.nodes.description_value.create()).scrollIntoView())
-      return true
-    })
-  }
+
   if (type = schema.nodes.description_value) {
+    let dt = type;
     bind("Enter", (state, dispatch) => {
-      dispatch(state.tr.replaceSelectionWith(schema.nodes.description_term.create()).scrollIntoView())
+      dispatch(state.tr.replaceSelectionWith(dt.create()).scrollIntoView())
       return true
     })
   }    
