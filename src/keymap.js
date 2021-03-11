@@ -88,14 +88,11 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-]", sinkListItem(type))
   }
 
-  if (type = schema.nodes.description_value) {
-    let dt = type;
-    bind("Enter", (state, dispatch) => {
-      //dispatch(state.tr.replaceSelectionWith(dt.create()).scrollIntoView())
-      alert("enter");
-      return true
-    })
-  }
+  if (type = schema.nodes.description_value)
+    bind("Enter", splitListItem(type))
+
+  if (type = schema.nodes.description_term)
+    bind("Enter", splitListItem(type))    
 
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
