@@ -331,11 +331,19 @@ export function buildMenuItems(schema) {
       label: "Monospaced"
     })
 
-  if (type = schema.nodes.description_list)
-    r.wrapDescriptionList = blockTypeItem(type, {
+  if (type = schema.nodes.description_list) {
+    /*r.wrapDescriptionList = wrapItem(type, {
       title: "Wrap in description list",
       icon: icons.orderedList
+    })*/
+    let dl = type
+    r.insertHorizontalRule = new MenuItem({
+      title: "Insert Page Break",
+      label: "Page Break",
+      enable(state) { return canInsert(state, dl) },
+      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.create())) }
     })
+  }
     
   if (type = schema.nodes.description_term)
     r.makeDescriptionTermBlock = blockTypeItem(type, {
