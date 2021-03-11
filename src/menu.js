@@ -331,19 +331,19 @@ export function buildMenuItems(schema) {
       label: "Monospaced"
     })
 
-  if (type = schema.nodes.description_list) {
-    /*r.wrapDescriptionList = wrapItem(type, {
+  if (type = schema.nodes.description_list)
+    r.wrapDescriptionList = wrapListItem(type, {
       title: "Wrap in description list",
       icon: icons.orderedList
-    })*/
+    })
+/*
     let dl = type
     r.wrapDescriptionList = new MenuItem({
       title: "Wrap in description list",
       icon: icons.orderedList,
       enable(state) { return canInsert(state, dl) },
       run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.createAndFill())) }
-    })
-  }
+    })*/
     
   if (type = schema.nodes.description_term)
     r.makeDescriptionTermBlock = blockTypeItem(type, {

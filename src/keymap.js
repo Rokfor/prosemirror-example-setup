@@ -87,6 +87,12 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-[", liftListItem(type))
     bind("Mod-]", sinkListItem(type))
   }
+  if (type = schema.nodes.description_term) {
+    bind("Enter", splitListItem(type))
+  }
+  if (type = schema.nodes.description_value) {
+    bind("Enter", splitListItem(type))
+  }    
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
   if (type = schema.nodes.code_block)
