@@ -337,7 +337,7 @@ export function buildMenuItems(schema) {
       icon: icons.orderedList
     })*/
     let dl = type
-    r.insertHorizontalRule = new MenuItem({
+    r.wrapDescriptionList = new MenuItem({
       title: "Insert Page Break",
       label: "Page Break",
       enable(state) { return canInsert(state, dl) },
