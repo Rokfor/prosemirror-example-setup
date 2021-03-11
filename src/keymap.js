@@ -88,9 +88,11 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-]", sinkListItem(type))
   }
   if (type = schema.nodes.description_term) {
+    alert('enter');
     bind("Enter", splitListItem(type))
   }
   if (type = schema.nodes.description_value) {
+    alert('enter');
     bind("Enter", splitListItem(type))
   }    
   if (type = schema.nodes.paragraph)
