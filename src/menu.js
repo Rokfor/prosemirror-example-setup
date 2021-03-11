@@ -334,7 +334,7 @@ export function buildMenuItems(schema) {
   if (type = schema.nodes.description_list)
     r.wrapDescriptionList = wrapListItem(type, {
       title: "Wrap in description list",
-      label: "Description List"
+      icon: icons.orderedList
     })
     
   if (type = schema.nodes.description_term)
@@ -453,10 +453,9 @@ export function buildMenuItems(schema) {
 
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
   r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
-                      liftItem, selectParentNodeItem])]
+                      liftItem, selectParentNodeItem, r.wrapDescriptionList])]
   
   r.descriptionMenu = new Dropdown(cut([
-    r.wrapDescriptionList,
     r.makeDescriptionTermBlock,
     r.makeDescriptionValueBlock
   ]), {label: "Descriptions"});
