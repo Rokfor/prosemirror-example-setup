@@ -338,8 +338,8 @@ export function buildMenuItems(schema) {
     })*/
     let dl = type
     r.wrapDescriptionList = new MenuItem({
-      title: "Insert Page Break",
-      label: "Page Break",
+      title: "Wrap in description list",
+      icon: icons.orderedList,
       enable(state) { return canInsert(state, dl) },
       run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.create())) }
     })
@@ -371,7 +371,7 @@ export function buildMenuItems(schema) {
       title: "Insert Page Break",
       label: "Page Break",
       enable(state) { return canInsert(state, hr) },
-      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.create())) }
+      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.createAndFill())) }
     })
   }
 
