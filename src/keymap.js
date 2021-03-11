@@ -92,6 +92,7 @@ export function buildKeymap(schema, mapKeys) {
     let dt = type;
     bind("Enter", (state, dispatch) => {
       //dispatch(state.tr.replaceSelectionWith(dt.create()).scrollIntoView())
+      alert("enter");
       return true
     })
   }
