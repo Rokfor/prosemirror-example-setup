@@ -88,12 +88,16 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-]", sinkListItem(type))
   }
   if (type = schema.nodes.description_term) {
-    alert('enter');
-    bind("Enter", splitListItem(type))
+    bind("Enter", (state, dispatch) => {
+      dispatch(state.tr.replaceSelectionWith(schema.nodes.description_value.create()).scrollIntoView())
+      return true
+    })
   }
   if (type = schema.nodes.description_value) {
-    alert('enter');
-    bind("Enter", splitListItem(type))
+    bind("Enter", (state, dispatch) => {
+      dispatch(state.tr.replaceSelectionWith(schema.nodes.description_term.create()).scrollIntoView())
+      return true
+    })
   }    
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
