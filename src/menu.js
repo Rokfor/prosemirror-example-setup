@@ -341,7 +341,7 @@ export function buildMenuItems(schema) {
       title: "Wrap in description list",
       icon: icons.orderedList,
       enable(state) { return canInsert(state, dl) },
-      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.create())) }
+      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.createAndFill())) }
     })
   }
     
@@ -371,7 +371,7 @@ export function buildMenuItems(schema) {
       title: "Insert Page Break",
       label: "Page Break",
       enable(state) { return canInsert(state, hr) },
-      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.createAndFill())) }
+      run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.create())) }
     })
   }
 
