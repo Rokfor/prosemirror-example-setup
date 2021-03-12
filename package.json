@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
-    "rollup": "^2.41.1"
+    "rollup": "^2.41.2"
   },
   "scripts": {
     "test": "true",

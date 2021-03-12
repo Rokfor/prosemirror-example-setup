@@ -9,8 +9,10 @@ const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : f
 const splitToDefaultListItem = function(itemType) {
   return function (state, dispatch) {
     const { $from, $to, node } = state.selection
+    console.log($from, $to, node);
     if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
     const grandParent = $from.node(-1)
+    console.log('grandParent', grandParent);
     if (grandParent.type != itemType) return false
     if ($from.parent.content.size == 0) {
       // In an empty block. If this is a nested list, the wrapping
@@ -20,8 +22,7 @@ const splitToDefaultListItem = function(itemType) {
           || $from.index(-2) != $from.node(-2).childCount - 1) return false
 
       if (dispatch) {
-        let wrap = Fragment.empty; const
-keepItem = $from.index(-1) > 0
+        let wrap = Fragment.empty; const keepItem = $from.index(-1) > 0
         // Build a fragment containing empty versions of the structure
         // from the outer list item to the parent node of the cursor
         for (let d = $from.depth - (keepItem ? 1 : 2); d >= $from.depth - 3; d--) wrap = Fragment.from($from.node(d).copy(wrap))
