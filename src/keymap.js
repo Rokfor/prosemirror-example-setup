@@ -45,7 +45,7 @@ const splitToDefaultListItem = function(itemType) {
     if (!types) types = [{ type: itemType }, null]
     /* Change ends here */
 
-    if (!canSplit(tr.doc, $from.pos, 2, types)) return false
+    //if (!canSplit(tr.doc, $from.pos, 2, types)) return false
     if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
     return true
   }
