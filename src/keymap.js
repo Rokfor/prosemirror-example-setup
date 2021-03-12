@@ -12,7 +12,7 @@ const splitToDefaultListItem = function(itemType) {
     console.log($from, $to, node);
     if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
     const grandParent = $from.node(-1)
-    console.log('grandParent', grandParent);
+    console.log('grandParent', grandParent, grandParent.type, itemType);
     if (grandParent.type != itemType) return false
     if ($from.parent.content.size == 0) {
       // In an empty block. If this is a nested list, the wrapping
