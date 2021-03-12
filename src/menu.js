@@ -339,13 +339,14 @@ export function buildMenuItems(schema) {
 
     let dl = type
     r.wrapDescriptionList = new MenuItem({
-      title: "Wrap in description list",
-      icon: icons.orderedList,
+      title: "Add description list",
+      icon: icons.desriptionList,
       enable(state) { return canInsert(state, dl) },
       run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(dl.createAndFill())) }
     })
   }
-    
+  
+  /*
   if (type = schema.nodes.description_term)
     r.makeDescriptionTermBlock = blockTypeItem(type, {
       title: "Change to description term",
@@ -355,7 +356,7 @@ export function buildMenuItems(schema) {
     r.makeDescriptionValueBlock = blockTypeItem(type, {
       title: "Change to description value",
       label: "Description Value"
-    })    
+    })*/    
 
     
 
@@ -463,13 +464,13 @@ export function buildMenuItems(schema) {
   r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])]
   r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem,
                       liftItem, selectParentNodeItem, r.wrapDescriptionList])]
-  
+  /*
   r.descriptionMenu = new Dropdown(cut([
     r.makeDescriptionTermBlock,
     r.makeDescriptionValueBlock
-  ]), {label: "Descriptions"});
+  ]), {label: "Descriptions"});*/
   
 
-  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu, r.descriptionMenu]], [[undoItem, redoItem]], r.blockMenu)
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.writerMenu/*, r.descriptionMenu*/]], [[undoItem, redoItem]], r.blockMenu)
   return r
 }
