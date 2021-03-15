@@ -16,7 +16,7 @@ const splitToDefaultListItem = function(itemType) {
     const grandParent = $from.node(-1)
     console.log('grandParent', grandParent, grandParent.type, itemType);
 
-    if (grandParent.name == 'description_list' && dispatch) {
+    if (grandParent.type.name == 'description_list' && dispatch) {
 
       let wrap = Fragment.empty;
       wrap = wrap.append(Fragment.from(grandParent.createAndFill()))
