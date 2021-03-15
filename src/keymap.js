@@ -8,7 +8,7 @@ import {Slice, Fragment} from "prosemirror-model"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
-const splitToDefaultListItem = function(itemType) {
+const splitToDefaultListItem = function(itemType, nodes) {
   return function (state, dispatch) {
     const { $from, $to, node } = state.selection
     console.log($from, $to, node);
@@ -18,8 +18,19 @@ const splitToDefaultListItem = function(itemType) {
 
     if (grandParent.type.name == 'description_list' && dispatch) {
 
-      dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
+      //dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
 
+      let wrap = Fragment.empty; const keepItem = $from.index(-1) > 0
+      // Build a fragment containing empty versions of the structure
+      // from the outer list item to the parent node of the cursor
+      for (let d = $from.depth - (keepItem ? 1 : 2); d >= $from.depth - 3; d--) wrap = Fragment.from($from.node(d).copy(wrap))
+      // Add a second list item with an empty default start node
+      wrap = wrap.append(Fragment.from(itemType.createAndFill()))
+      const tr = state.tr.replace($from.before(keepItem ? null : -1), $from.after(-3), new Slice(wrap, keepItem ? 3 : 2, 2))
+      tr.setSelection(state.selection.constructor.near(tr.doc.resolve($from.pos + (keepItem ? 3 : 2))))
+      dispatch(tr.scrollIntoView())
+
+      return true
 
     }
 /*
@@ -141,10 +152,10 @@ export function buildKeymap(schema, mapKeys) {
   }
 
   if (type = schema.nodes.description_value)
-    bind("Enter", splitToDefaultListItem(type))
+    bind("Enter", splitToDefaultListItem(type, schema.nodes))
 
   if (type = schema.nodes.description_term)
-    bind("Enter", splitToDefaultListItem(type))    
+    bind("Enter", splitToDefaultListItem(type, schema.nodes))    
 
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
