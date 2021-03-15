@@ -16,7 +16,7 @@ const splitToDefaultListItem = function(itemType, nodes) {
     const grandParent = $from.node(-1)
     console.log('grandParent', grandParent, grandParent.type, itemType);
 
-    if (grandParent.type.name == 'description_list' && dispatch) {
+    if (grandParent.type.name == 'dl' && dispatch) {
 
       
       if ($from.parent.content.size == 0) {
