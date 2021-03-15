@@ -15,6 +15,19 @@ const splitToDefaultListItem = function(itemType) {
     if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
     const grandParent = $from.node(-1)
     console.log('grandParent', grandParent, grandParent.type, itemType);
+
+    if (grandParent.name == 'description_list' && dispatch) {
+
+      let wrap = Fragment.empty;
+      wrap = wrap.append(Fragment.from(grandParent.createAndFill()))
+      const tr = state.tr.replace($from.before(null), $from.after(-3), new Slice(wrap, 3, 2))
+      tr.setSelection(state.selection.constructor.near(tr.doc.resolve($from.pos + (keepItem ? 3 : 2))))
+      dispatch(tr.scrollIntoView())
+
+
+    }
+/*
+
     //if (grandParent.type != itemType) return false
     if ($from.parent.content.size == 0) {
       // In an empty block. If this is a nested list, the wrapping
@@ -39,15 +52,13 @@ const splitToDefaultListItem = function(itemType) {
     const nextType = $to.pos == $from.end() ? grandParent.contentMatchAt($from.indexAfter(-1)).defaultType : null
     const tr = state.tr.delete($from.pos, $to.pos)
 
-    /* Change starts from here */
     // let types = nextType && [null, {type: nextType}]
     let types = nextType && [{ type: itemType }, { type: nextType }]
     if (!types) types = [{ type: itemType }, null]
-    /* Change ends here */
 
     //if (!canSplit(tr.doc, $from.pos, 2, types)) return false
     if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
-    return true
+    return true*/
   }
 }
 
