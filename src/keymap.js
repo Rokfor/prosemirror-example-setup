@@ -149,10 +149,10 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-]", sinkListItem(type))
   }
 
-  if (type = schema.nodes.description_value)
+  if (type = schema.nodes.dd)
     bind("Enter", splitToDefaultListItem(type, schema.nodes))
 
-  if (type = schema.nodes.description_term)
+  if (type = schema.nodes.dt)
     bind("Enter", splitToDefaultListItem(type, schema.nodes))    
 
   if (type = schema.nodes.paragraph)
