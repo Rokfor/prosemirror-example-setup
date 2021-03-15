@@ -331,7 +331,7 @@ export function buildMenuItems(schema) {
       label: "Monospaced"
     })
 
-  if (type = schema.nodes.description_list) {
+  if (type = schema.nodes.dl) {
     /*r.wrapDescriptionList = wrapListItem(type, {
       title: "Wrap in description list",
       icon: icons.orderedList
