@@ -18,11 +18,7 @@ const splitToDefaultListItem = function(itemType) {
 
     if (grandParent.type.name == 'description_list' && dispatch) {
 
-      let wrap = Fragment.empty;
-      wrap = wrap.append(Fragment.from(grandParent.type.createAndFill()))
-      const tr = state.tr.replace($from.before(null), $from.after(-3), new Slice(wrap, 3, 2))
-      tr.setSelection(state.selection.constructor.near(tr.doc.resolve($from.pos + (keepItem ? 3 : 2))))
-      dispatch(tr.scrollIntoView())
+      dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
 
 
     }
