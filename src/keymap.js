@@ -1,5 +1,5 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-        joinUp, joinDown, lift, selectParentNode, splitBlock} from "prosemirror-commands"
+        joinUp, joinDown, lift, selectParentNode, createParagraphNear} from "prosemirror-commands"
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
@@ -18,10 +18,15 @@ const splitToDefaultListItem = function(itemType, nodes) {
 
     if (grandParent.type.name == 'description_list' && dispatch) {
 
-      //dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
-      //joinUp(state);
-
-      splitBlock(state, dispatch);
+      
+      if ($from.parent.content.size == 0) {
+        createParagraphNear(state, dispatch);
+      }
+      else {
+        dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
+        joinUp(state);
+      }
+      
 
       return true
 
