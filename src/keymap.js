@@ -24,7 +24,7 @@ const splitToDefaultListItem = function(itemType, nodes) {
       }
       else {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
-        joinUp(state);
+        joinUp(state, dispatch);
       }
       
 
