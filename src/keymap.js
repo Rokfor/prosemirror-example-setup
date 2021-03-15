@@ -20,11 +20,11 @@ const splitToDefaultListItem = function(itemType, nodes) {
 
       
       if ($from.parent.content.size == 0) {
-        createParagraphNear(state, dispatch);
+        dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
       }
       else {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
-        //joinUp(state);
+        joinUp(state);
       }
       
 
