@@ -19,7 +19,7 @@ const splitToDefaultListItem = function(itemType, nodes) {
     if (grandParent.type.name == 'description_list' && dispatch) {
 
       dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
-      joinUp();
+      joinUp(state);
       return true
 
     }
