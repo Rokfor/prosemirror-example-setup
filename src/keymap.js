@@ -32,10 +32,10 @@ function splitDefinitionList(itemType, nodes) {
         if (dispatch) dispatch(tr.insert($from.pos, nodes.paragraph.createAndFill()).scrollIntoView())
 */
         let tr = state.tr
-        let surround = $from.node(-3);
+        let surround = $from.node(-2);
         let range = $from.blockRange($to)
 
-        console.log(surround);
+        console.log(surround, range);
 
         if (dispatch) dispatch(tr.insert(range.end, nodes.paragraph.createAndFill()).scrollIntoView())
 
