@@ -27,8 +27,8 @@ function splitDefinitionList(itemType, nodes) {
         let nextType = $to.pos == $from.end() ? $from.node(-2).contentMatchAt(0).defaultType : null
         let tr = state.tr.delete($from.pos, $to.pos)
         let types = nextType && [null, {type: nextType}]
-        if (!canSplit(tr.doc, $from.pos, 2, types)) return false
-        if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
+        if (!canSplit(tr.doc, $from.pos, 1, types)) return false
+        if (dispatch) dispatch(tr.split($from.pos, 1, types).scrollIntoView())
 
         return true
 
