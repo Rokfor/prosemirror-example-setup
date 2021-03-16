@@ -10,12 +10,15 @@ function splitDefinitionList(itemType, nodes) {
   return function (state, dispatch) {
 
     const { $from, $to, node } = state.selection
-    console.log($from, $to, node);
+    //console.log($from, $to, node);
     if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
     const grandParent = $from.node(-1)
-    console.log('grandParent', grandParent, grandParent.type, itemType);
+    //console.log('grandParent', grandParent, grandParent.type, itemType);
 
     if (grandParent.type.name == 'dl' && dispatch) {
+      console.log($from, $to, node, grandParent, itemType)
+    }
+    if (grandParent.type.name == 'dd' && dispatch) {
       if ($from.parent.content.size == 0) {
         dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
       }
