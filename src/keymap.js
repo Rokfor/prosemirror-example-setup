@@ -1,10 +1,8 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-        joinUp, joinDown, lift, selectParentNode, createParagraphNear} from "prosemirror-commands"
+        joinUp, joinDown, lift, selectParentNode} from "prosemirror-commands"
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
-import {canSplit} from "prosemirror-transform"
-import {Slice, Fragment} from "prosemirror-model"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
@@ -117,12 +115,10 @@ export function buildKeymap(schema, mapKeys) {
   }
 
   if (type = schema.nodes.dd)
-    //bind("Enter", splitToDefaultListItem(type, schema.nodes))
-    bind("Enter", splitListItem(type))
+    bind("Enter", splitToDefaultListItem(type, schema.nodes))
 
   if (type = schema.nodes.dt)
-    //bind("Enter", splitToDefaultListItem(type, schema.nodes)) 
-    bind("Enter", splitListItem(type))   
+    bind("Enter", splitToDefaultListItem(type, schema.nodes)) 
 
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
