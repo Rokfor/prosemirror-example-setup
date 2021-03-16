@@ -30,6 +30,9 @@ function splitDefinitionList(itemType, nodes) {
         if (!canSplit(tr.doc, $from.pos, 2, types)) return false
         if (dispatch) dispatch(tr.insert($from.pos, 2,nodes.paragraph).scrollIntoView())
 */
+        if ($from.depth == 2 || $from.node(-3).type != itemType ||
+          $from.index(-2) != $from.node(-2).childCount - 1) return false
+          
         let wrap = Fragment.empty, keepItem = $from.index(-1) > 0
         // Build a fragment containing empty versions of the structure
         // from the outer list item to the parent node of the cursor
