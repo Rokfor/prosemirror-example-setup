@@ -26,7 +26,7 @@ function splitDefinitionList(itemType, nodes) {
         
         
         let tr = state.tr.delete($from.pos, $to.pos)
-        if (dispatch) dispatch(tr.split($from.pos, 1, state.schema.nodes.paragraph).scrollIntoView())
+        if (dispatch) dispatch(tr.split($from.pos, 3).scrollIntoView())
         return true
         
 
