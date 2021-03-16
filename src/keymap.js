@@ -29,17 +29,19 @@ function splitDefinitionList(itemType, nodes) {
         /*let tr = state.tr.delete($from.pos, $to.pos)
         let types = nodes.paragraph && [null, {type: nodes.paragraph}]
         if (!canSplit(tr.doc, $from.pos, 2, types)) return false
-        if (dispatch) dispatch(tr.insert($from.pos, 2,nodes.paragraph).scrollIntoView())
+        if (dispatch) dispatch(tr.insert($from.pos, nodes.paragraph.createAndFill()).scrollIntoView())
 */
         let tr = state.tr
-        let surround = $from.node(-2);
-        let surround2 = $from.node(-3);
+        let surround = $from.node(-3);
+        let range = $from.blockRange($to)
 
-        console.log(surround, surround2);
+        console.log(surround);
 
-        //let range = $from.blockRange($to)
+        if (dispatch) dispatch(tr.insert(range.end, nodes.paragraph.createAndFill()).scrollIntoView())
+
+        
         //let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
-        surround.content.append(nodes.paragraph.createAndFill());
+//        surround.content.append(nodes.paragraph.createAndFill());
 
 
         /*
@@ -65,7 +67,7 @@ function splitDefinitionList(itemType, nodes) {
                                                 .append(atEnd ? Fragment.empty : Fragment.from(list.copy(Fragment.empty))),
                                                 atStart ? 0 : 1, atEnd ? 0 : 1), atStart ? 0 : 1))
         */
-        dispatch(tr.scrollIntoView())
+        //dispatch(tr.scrollIntoView())
         return true
 
 
