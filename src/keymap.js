@@ -69,6 +69,7 @@ export function buildKeymap(schema, mapKeys) {
     keys[key] = cmd
   }
 
+  console.log('type', type);
 
   bind("Mod-z", undo)
   bind("Shift-Mod-z", redo)
