@@ -31,8 +31,11 @@ function splitDefinitionList(itemType, nodes) {
         if (!canSplit(tr.doc, $from.pos, 2, types)) return false
         if (dispatch) dispatch(tr.insert($from.pos, 2,nodes.paragraph).scrollIntoView())
 */
-        
         let range = $from.blockRange($to)
+        let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
+        item.content.append(Fragment.empty);
+
+        /*
 
         let tr = state.tr, list = range.parent
         // Merge the list items into a single big item
@@ -54,6 +57,7 @@ function splitDefinitionList(itemType, nodes) {
                                       new Slice((atStart ? Fragment.empty : Fragment.from(list.copy(Fragment.empty)))
                                                 .append(atEnd ? Fragment.empty : Fragment.from(list.copy(Fragment.empty))),
                                                 atStart ? 0 : 1, atEnd ? 0 : 1), atStart ? 0 : 1))
+        */
         dispatch(tr.scrollIntoView())
         return true
 
