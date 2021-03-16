@@ -32,9 +32,9 @@ function splitDefinitionList(itemType, nodes) {
         if (dispatch) dispatch(tr.insert($from.pos, 2,nodes.paragraph).scrollIntoView())
 */
         let tr = state.tr
-        let range = $from.blockRange($to)
-        let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
-        item.content.append(Fragment.empty);
+        //let range = $from.blockRange($to)
+        //let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
+        grandParent.node(-1).content.append(Fragment.from(nodes.paragraph));
 
         /*
 
