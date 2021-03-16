@@ -1,10 +1,8 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
         joinUp, joinDown, lift, selectParentNode} from "prosemirror-commands"
-import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
+import {wrapInList, splitListItem, liftListItem, sinkListItem, liftOutOfList} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
-//import {canSplit} from "prosemirror-transform"
-import {Slice, Fragment/*, NodeRange*/} from "prosemirror-model"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
@@ -30,20 +28,9 @@ function splitDefinitionList(itemType, nodes) {
         if (!canSplit(tr.doc, $from.pos, 2, types)) return false
         if (dispatch) dispatch(tr.insert($from.pos, 2,nodes.paragraph).scrollIntoView())
 */
-        if ($from.depth == 2 || $from.node(-3).type != itemType ||
-          $from.index(-2) != $from.node(-2).childCount - 1) return false
-          
-        let wrap = Fragment.empty, keepItem = $from.index(-1) > 0
-        // Build a fragment containing empty versions of the structure
-        // from the outer list item to the parent node of the cursor
-        for (let d = $from.depth - (keepItem ? 1 : 2); d >= $from.depth - 3; d--)
-          wrap = Fragment.from($from.node(d).copy(wrap))
-        // Add a second list item with an empty default start node
-        wrap = wrap.append(Fragment.from(itemType.createAndFill()))
-        let tr = state.tr.replace($from.before(keepItem ? null : -1), $from.after(-3), new Slice(wrap, keepItem ? 3 : 2, 2))
-        tr.setSelection(state.selection.constructor.near(tr.doc.resolve($from.pos + (keepItem ? 3 : 2))))
-        dispatch(tr.scrollIntoView())
-
+        
+        let range = $from.blockRange($to)
+        liftOutOfList(state, dispatch, range)
 
       }
       else {
