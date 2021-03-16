@@ -1,10 +1,11 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
         joinUp, joinDown, lift, selectParentNode} from "prosemirror-commands"
-import {wrapInList, splitListItem, liftListItem, sinkListItem, liftOutOfList} from "prosemirror-schema-list"
+import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
 import {ReplaceAroundStep} from "prosemirror-transform"
 
+import {Slice, Fragment} from "prosemirror-model"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
