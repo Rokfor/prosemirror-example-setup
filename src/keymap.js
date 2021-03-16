@@ -34,7 +34,9 @@ function splitDefinitionList(itemType, nodes) {
         let tr = state.tr
         //let range = $from.blockRange($to)
         //let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
-        $from.node(-3).content.append(Fragment.from(nodes.paragraph.createAndFill()));
+        $from.node(-3).content.append(Fragment.empty);
+        $from.node(-2).content.append(Fragment.empty);
+        $from.node(-1).content.append(Fragment.empty);
 
         /*
 
