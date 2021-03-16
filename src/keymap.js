@@ -108,17 +108,13 @@ export function buildKeymap(schema, mapKeys) {
     if (mac) bind("Ctrl-Enter", cmd)
   }
 
-  if (type = schema.nodes.dd)
-    bind("Enter", splitDefinitionList(type, schema.nodes))
-
-  if (type = schema.nodes.dt)
-    bind("Enter", splitDefinitionList(type, schema.nodes)) 
-
   if (type = schema.nodes.list_item) {
-    bind("Enter", splitListItem(type))
     bind("Mod-[", liftListItem(type))
     bind("Mod-]", sinkListItem(type))
   }
+
+  if (type = schema.nodes.dd || schema.nodes.dt || schema.nodes.list_item)
+    bind("Enter", chainCommands(splitDefinitionList(type, schema.nodes), splitListItem(type)))
 
 
   if (type = schema.nodes.paragraph)
