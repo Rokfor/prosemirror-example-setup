@@ -23,13 +23,12 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
-        dispatch(state.tr.replaceSelectionWith($from.node(-2).type.createAndFill()).scrollIntoView())
-
-        /*
+        
+        
         let tr = state.tr.delete($from.pos, $to.pos)
-        if (dispatch) dispatch(tr.split($from.pos, 3, state.schema.nodes.paragraph).scrollIntoView())
+        if (dispatch) dispatch(tr.split($from.pos, 1, state.schema.nodes.paragraph).scrollIntoView())
         return true
-        */
+        
 
 
       }
