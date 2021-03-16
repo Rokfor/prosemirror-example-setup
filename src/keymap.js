@@ -31,39 +31,6 @@ const splitToDefaultListItem = function(itemType, nodes) {
       return true
 
     }
-/*
-
-    //if (grandParent.type != itemType) return false
-    if ($from.parent.content.size == 0) {
-      // In an empty block. If this is a nested list, the wrapping
-      // list item should be split. Otherwise, bail out and let next
-      // command handle lifting.
-      if ($from.depth == 2 || $from.node(-3).type != itemType
-          || $from.index(-2) != $from.node(-2).childCount - 1) return false
-
-      if (dispatch) {
-        let wrap = Fragment.empty; const keepItem = $from.index(-1) > 0
-        // Build a fragment containing empty versions of the structure
-        // from the outer list item to the parent node of the cursor
-        for (let d = $from.depth - (keepItem ? 1 : 2); d >= $from.depth - 3; d--) wrap = Fragment.from($from.node(d).copy(wrap))
-        // Add a second list item with an empty default start node
-        wrap = wrap.append(Fragment.from(itemType.createAndFill()))
-        const tr = state.tr.replace($from.before(keepItem ? null : -1), $from.after(-3), new Slice(wrap, keepItem ? 3 : 2, 2))
-        tr.setSelection(state.selection.constructor.near(tr.doc.resolve($from.pos + (keepItem ? 3 : 2))))
-        dispatch(tr.scrollIntoView())
-      }
-      return true
-    }
-    const nextType = $to.pos == $from.end() ? grandParent.contentMatchAt($from.indexAfter(-1)).defaultType : null
-    const tr = state.tr.delete($from.pos, $to.pos)
-
-    // let types = nextType && [null, {type: nextType}]
-    let types = nextType && [{ type: itemType }, { type: nextType }]
-    if (!types) types = [{ type: itemType }, null]
-
-    //if (!canSplit(tr.doc, $from.pos, 2, types)) return false
-    if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
-    return true*/
   }
 }
 
@@ -150,10 +117,12 @@ export function buildKeymap(schema, mapKeys) {
   }
 
   if (type = schema.nodes.dd)
-    bind("Enter", splitToDefaultListItem(type, schema.nodes))
+    //bind("Enter", splitToDefaultListItem(type, schema.nodes))
+    bind("Enter", splitListItem(type))
 
   if (type = schema.nodes.dt)
-    bind("Enter", splitToDefaultListItem(type, schema.nodes))    
+    //bind("Enter", splitToDefaultListItem(type, schema.nodes)) 
+    bind("Enter", splitListItem(type))   
 
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))

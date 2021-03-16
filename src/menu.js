@@ -327,8 +327,8 @@ export function buildMenuItems(schema) {
     })
   if (type = schema.nodes.code_block)
     r.makeCodeBlock = blockTypeItem(type, {
-      title: "Change to monospaced block",
-      label: "Monospaced"
+      title: "Change to poem block",
+      label: "Poem"
     })
 
   if (type = schema.nodes.dl) {
