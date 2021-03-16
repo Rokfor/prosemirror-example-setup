@@ -1,5 +1,5 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-        joinUp, joinDown, lift, selectParentNode} from "prosemirror-commands"
+        joinUp, joinDown, lift, selectParentNode, createParagraphNear} from "prosemirror-commands"
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
@@ -24,54 +24,8 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
-//        dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
-
-        /*let tr = state.tr.delete($from.pos, $to.pos)
-        let types = nodes.paragraph && [null, {type: nodes.paragraph}]
-        if (!canSplit(tr.doc, $from.pos, 2, types)) return false
-        if (dispatch) dispatch(tr.insert($from.pos, nodes.paragraph.createAndFill()).scrollIntoView())
-*/
-        let tr = state.tr
-        let surround = $from.node(-2);
-        let range = $from.blockRange($to)
-
-        console.log(surround, range);
-
-        if (dispatch) dispatch(tr.insert(range.end, nodes.paragraph.createAndFill()).scrollIntoView())
-
-        
-        //let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
-//        surround.content.append(nodes.paragraph.createAndFill());
-
-
-        /*
-
-        let tr = state.tr, list = range.parent
-        // Merge the list items into a single big item
-        for (let pos = range.end, i = range.endIndex - 1, e = range.startIndex; i > e; i--) {
-          pos -= list.child(i).nodeSize
-          tr.delete(pos - 1, pos + 1)
-        }
-        let $start = tr.doc.resolve(range.start), item = $start.nodeAfter
-        let atStart = range.startIndex == 0, atEnd = range.endIndex == list.childCount
-        let parent = $start.node(-1), indexBefore = $start.index(-1)
-        if (!parent.canReplace(indexBefore + (atStart ? 0 : 1), indexBefore + 1,
-                               item.content.append(atEnd ? Fragment.empty : Fragment.from(list))))
-          return false
-        let start = $start.pos, end = start + item.nodeSize
-        // Strip off the surrounding list. At the sides where we're not at
-        // the end of the list, the existing list is closed. At sides where
-        // this is the end, it is overwritten to its end.
-        tr.step(new ReplaceAroundStep(start - (atStart ? 1 : 0), end + (atEnd ? 1 : 0), start + 1, end - 1,
-                                      new Slice((atStart ? Fragment.empty : Fragment.from(list.copy(Fragment.empty)))
-                                                .append(atEnd ? Fragment.empty : Fragment.from(list.copy(Fragment.empty))),
-                                                atStart ? 0 : 1, atEnd ? 0 : 1), atStart ? 0 : 1))
-        */
-        //dispatch(tr.scrollIntoView())
+        createParagraphNear(state, dispatch)
         return true
-
-
-
       }
       else {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
