@@ -1,5 +1,5 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-        joinUp, joinDown, lift, selectParentNode, createParagraphNear} from "prosemirror-commands"
+        joinUp, joinDown, lift, selectParentNode, splitBlock} from "prosemirror-commands"
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
@@ -24,7 +24,7 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
-        createParagraphNear(state, dispatch)
+        splitBlock(state, dispatch)
         return true
       }
       else {
