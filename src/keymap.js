@@ -1,11 +1,10 @@
 import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-        joinUp, joinDown, lift, selectParentNode, splitBlock} from "prosemirror-commands"
+        joinUp, joinDown, lift, selectParentNode} from "prosemirror-commands"
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
-import {ReplaceAroundStep} from "prosemirror-transform"
+import {canSplit} from "prosemirror-transform"
 
-import {Slice, Fragment} from "prosemirror-model"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
@@ -24,8 +23,17 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
-        splitBlock(state, dispatch)
+
+        let nextType = $to.pos == $from.end() ? $from.node(-2).contentMatchAt(0).defaultType : null
+        let tr = state.tr.delete($from.pos, $to.pos)
+        let types = nextType && [null, {type: nextType}]
+        if (!canSplit(tr.doc, $from.pos, 2, types)) return false
+        if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
+
         return true
+
+
+
       }
       else {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
