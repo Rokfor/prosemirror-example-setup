@@ -3,6 +3,7 @@ import {wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
 import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror-schema-list"
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
+import {canSplit} from "prosemirror-transform"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
@@ -21,7 +22,16 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
-        dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
+//        dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
+
+        let tr = state.tr.delete($from.pos, $to.pos)
+        let types = nodes.paragraph && [null, {type: nodes.paragraph}]
+        if (!canSplit(tr.doc, $from.pos, 2, types)) return false
+        if (dispatch) dispatch(tr.split($from.pos, 2, types).scrollIntoView())
+
+
+
+
       }
       else {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
