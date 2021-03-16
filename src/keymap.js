@@ -16,9 +16,10 @@ function splitDefinitionList(itemType, nodes) {
     //console.log('grandParent', grandParent, grandParent.type, itemType);
 
     if (grandParent.type.name == 'dl' && dispatch) {
-      console.log($from, $to, node, grandParent, itemType)
+      console.log('dl', $from, node, grandParent)
     }
     if (grandParent.type.name == 'dd' && dispatch) {
+      console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
         dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
       }
