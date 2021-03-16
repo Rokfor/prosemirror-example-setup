@@ -49,10 +49,10 @@ export function buildInputRules(schema) {
   if (type = schema.nodes.heading) rules.push(headingRule(type, 6))
 
   // Disabling Lists and Quotes and auto code block
-  //if (type = schema.nodes.blockquote) rules.push(blockQuoteRule(type))
-  //if (type = schema.nodes.ordered_list) rules.push(orderedListRule(type))
-  //if (type = schema.nodes.bullet_list) rules.push(bulletListRule(type))
-  //if (type = schema.nodes.code_block) rules.push(codeBlockRule(type))
+  if (type = schema.nodes.blockquote) rules.push(blockQuoteRule(type))
+  if (type = schema.nodes.ordered_list) rules.push(orderedListRule(type))
+  if (type = schema.nodes.bullet_list) rules.push(bulletListRule(type))
+  if (type = schema.nodes.code_block) rules.push(codeBlockRule(type))
   
   return inputRules({rules})
 }
