@@ -6,7 +6,7 @@ import {undoInputRule} from "prosemirror-inputrules"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
-const splitToDefaultListItem = function(itemType, nodes) {
+const splitDefinitionList = function(itemType, nodes) {
   return function (state, dispatch) {
     const { $from, $to, node } = state.selection
     console.log($from, $to, node);
@@ -114,12 +114,12 @@ export function buildKeymap(schema, mapKeys) {
     bind("Mod-]", sinkListItem(type))
   }
 
-/*  if (type = schema.nodes.dd)
-    bind("Enter", splitToDefaultListItem(type, schema.nodes))
+  if (type = schema.nodes.dd)
+    bind("Enter", splitDefinitionList(type, schema.nodes))
 
   if (type = schema.nodes.dt)
-    bind("Enter", splitToDefaultListItem(type, schema.nodes)) 
-*/
+    bind("Enter", splitDefinitionList(type, schema.nodes)) 
+
 
   if (type = schema.nodes.paragraph)
     bind("Shift-Ctrl-0", setBlockType(type))
