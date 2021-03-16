@@ -6,7 +6,7 @@ import {undoInputRule} from "prosemirror-inputrules"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
-const splitDefinitionList = function(itemType, nodes) {
+function splitDefinitionList(itemType, nodes) {
   return function (state, dispatch) {
     const { $from, $to, node } = state.selection
     console.log($from, $to, node);
