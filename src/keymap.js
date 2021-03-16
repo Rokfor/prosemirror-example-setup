@@ -8,6 +8,7 @@ const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : f
 
 function splitDefinitionList(itemType, nodes) {
   return function (state, dispatch) {
+
     const { $from, $to, node } = state.selection
     console.log($from, $to, node);
     if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
@@ -15,8 +16,6 @@ function splitDefinitionList(itemType, nodes) {
     console.log('grandParent', grandParent, grandParent.type, itemType);
 
     if (grandParent.type.name == 'dl' && dispatch) {
-
-      
       if ($from.parent.content.size == 0) {
         dispatch(state.tr.replaceSelectionWith(nodes.paragraph.createAndFill()).scrollIntoView())
       }
@@ -24,11 +23,10 @@ function splitDefinitionList(itemType, nodes) {
         dispatch(state.tr.replaceSelectionWith(grandParent.type.createAndFill()).scrollIntoView())
         joinUp(state, dispatch);
       }
-      
-
       return true
-
     }
+
+    return false;
   }
 }
 
