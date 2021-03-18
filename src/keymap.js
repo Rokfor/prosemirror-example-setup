@@ -25,6 +25,7 @@ function splitDefinitionList(itemType, nodes) {
         if (grandParent.firstChild == $from.parent && $from.parentOffset == 0) {
           let tr = state.tr.insert($from.pos - 2, state.schema.nodes.paragraph.createAndFill())
           if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($from.pos - 2))).scrollIntoView())          
+          return true;
         }
       } catch (error) {
         
