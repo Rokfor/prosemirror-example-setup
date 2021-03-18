@@ -4,6 +4,7 @@ import {wrapInList, splitListItem, liftListItem, sinkListItem} from "prosemirror
 import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
 import {canSplit} from "prosemirror-transform"
+import {TextSelection} from "prosemirror-state"
 
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
@@ -27,7 +28,11 @@ function splitDefinitionList(itemType, nodes) {
         console.log($from, $to, $from.node(-2), $from.node(-3), state.schema.nodes)
         
         //let tr = state.tr.delete($from.pos, $to.pos)
-        if (dispatch) dispatch(state.tr.insert($to.pos + 2, state.schema.nodes.paragraph.createAndFill()).scrollIntoView())
+
+        let tr = state.tr.insert($to.pos + 2, state.schema.nodes.paragraph.createAndFill())
+        
+
+        if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($to.pos + 2)))).scrollIntoView())
         return true
         
 
