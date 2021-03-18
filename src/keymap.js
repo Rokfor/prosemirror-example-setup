@@ -19,7 +19,7 @@ function splitDefinitionList(itemType, nodes) {
     //console.log('grandParent', grandParent, grandParent.type, itemType);
 
     if (grandParent.type.name == 'dl' && dispatch) {
-      console.log('dl', grandParent.childBefore($from.pos - 1))
+      console.log('dl', $from.parentOffset, grandParent.childBefore($from.pos - 1))
     }
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
