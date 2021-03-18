@@ -20,12 +20,14 @@ function splitDefinitionList(itemType, nodes) {
 
     if (grandParent.type.name == 'dl' && dispatch) {
       try {
-        let _sibling = $from.node().childBefore($from.pos - 2);
-        console.log($from.parentOffset, $from, $from.node(0), _sibling);
+        //let _sibling = $from.node().childBefore($from.pos - 2);
+        let side = (!$from.parentOffset && $to.index() < $to.parent.childCount ? $from : $to).pos
+
+        console.log(side);
       } catch (error) {
         
       }
-      console.log('dl', $from.parentOffset, )
+      //console.log('dl', $from.parentOffset, )
     }
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
