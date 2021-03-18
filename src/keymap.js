@@ -24,10 +24,10 @@ function splitDefinitionList(itemType, nodes) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
         
-        console.log($from, $from.node(-2), $from.node(-3))
+        console.log($from, $to, $from.node(-2), $from.node(-3), state.schema.nodes)
         
-        let tr = state.tr.delete($from.pos, $to.pos)
-        if (dispatch) dispatch(tr.insert($to.pos + 1, nodes.paragraph).scrollIntoView())
+        //let tr = state.tr.delete($from.pos, $to.pos)
+        if (dispatch) dispatch(tr.insert($to.pos, state.schema.nodes.paragraph).scrollIntoView())
         return true
         
 
