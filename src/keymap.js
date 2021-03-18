@@ -21,8 +21,8 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dl' && dispatch) {
       try {
         //let _sibling = $from.node().childBefore($from.pos - 2);
-        
-        if (grandParent.firstChild == $from.parent && !$from.parentOffset) {
+        console.log($from.parentOffset)
+        if (grandParent.firstChild == $from.parent) {
           let tr = state.tr.insert($from.pos - 2, state.schema.nodes.paragraph.createAndFill())
           if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($from.pos - 3))).scrollIntoView())          
         }
