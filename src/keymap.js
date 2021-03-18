@@ -23,7 +23,7 @@ function splitDefinitionList(itemType, nodes) {
         //let _sibling = $from.node().childBefore($from.pos - 2);
         let side = (!$from.parentOffset && $to.index() < $to.parent.childCount ? $from : $to).pos
 
-        console.log(side, $from.index(), $from.parent.childCount);
+        console.log(side, $from.index(), $from.parent.childCount, grandParent.firstChild(), $from.node(0));
       } catch (error) {
         
       }
