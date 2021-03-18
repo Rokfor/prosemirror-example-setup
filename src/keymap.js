@@ -23,8 +23,8 @@ function splitDefinitionList(itemType, nodes) {
         //let _sibling = $from.node().childBefore($from.pos - 2);
         console.log($from.parentOffset)
         if (grandParent.firstChild == $from.parent && $from.parentOffset == 0) {
-          let tr = state.tr.insert($from.pos - 1, state.schema.nodes.paragraph.createAndFill())
-          if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($from.pos - 1))).scrollIntoView())          
+          let tr = state.tr.insert($from.pos - 2, state.schema.nodes.paragraph.createAndFill())
+          if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($from.pos - 2))).scrollIntoView())          
         }
       } catch (error) {
         
