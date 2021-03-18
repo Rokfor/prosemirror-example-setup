@@ -21,7 +21,7 @@ function splitDefinitionList(itemType, nodes) {
     if (grandParent.type.name == 'dl' && dispatch) {
       try {
         let _sibling = $from.node().childBefore($from.pos - 2);
-        console.log($from.parentOffset, _sibling);
+        console.log($from.parentOffset, $from, $from.node(0), _sibling);
       } catch (error) {
         
       }
