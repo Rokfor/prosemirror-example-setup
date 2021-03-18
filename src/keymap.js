@@ -20,7 +20,7 @@ function splitDefinitionList(itemType, nodes) {
 
     if (grandParent.type.name == 'dl' && dispatch) {
       try {
-        let _sibling = $from.node().childBefore($from.pos - 1);
+        let _sibling = $from.node().childBefore($from.pos - 2);
         console.log($from.parentOffset, _sibling);
       } catch (error) {
         
