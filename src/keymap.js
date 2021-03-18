@@ -22,7 +22,10 @@ function splitDefinitionList(itemType, nodes) {
       try {
         //let _sibling = $from.node().childBefore($from.pos - 2);
         
-        console.log(grandParent.firstChild == $from.parent);
+        if (grandParent.firstChild == $from.parent && !$from.parentOffset) {
+          let tr = state.tr.insert($from.pos - 2, state.schema.nodes.paragraph.createAndFill())
+          if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($from.pos - 3))).scrollIntoView())          
+        }
       } catch (error) {
         
       }
