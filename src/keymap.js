@@ -27,7 +27,7 @@ function splitDefinitionList(itemType, nodes) {
         console.log($from, $to, $from.node(-2), $from.node(-3), state.schema.nodes)
         
         //let tr = state.tr.delete($from.pos, $to.pos)
-        if (dispatch) dispatch(state.tr.insert($to.pos + 1, state.schema.nodes.paragraph.createAndFill()).scrollIntoView())
+        if (dispatch) dispatch(state.tr.insert($to.pos + 2, state.schema.nodes.paragraph.createAndFill()).scrollIntoView())
         return true
         
 
