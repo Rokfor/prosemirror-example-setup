@@ -22,7 +22,7 @@ function splitDefinitionList(itemType, nodes) {
       try {
         //let _sibling = $from.node().childBefore($from.pos - 2);
         
-        console.log(grandParent, $from.node(0), $from.parent);
+        console.log(grandParent.firstChild == $from.parent);
       } catch (error) {
         
       }
