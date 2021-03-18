@@ -18,8 +18,14 @@ function splitDefinitionList(itemType, nodes) {
     const grandParent = $from.node(-1)
     //console.log('grandParent', grandParent, grandParent.type, itemType);
 
-    if (grandParent.type.name == 'dl' && dispatch) {
-      console.log('dl', $from.parentOffset, grandParent.childBefore($from.pos - 1))
+    if (grandParent.type.name == 'dl' && dispatch && $from.parentOffset == 0) {
+      try {
+        let _sibling = $from.node().childBefore($from.pos);
+        console.log(_sibling);
+      } catch (error) {
+        
+      }
+      console.log('dl', $from.parentOffset, )
     }
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
