@@ -19,20 +19,19 @@ function splitDefinitionList(itemType, nodes) {
     //console.log('grandParent', grandParent, grandParent.type, itemType);
 
     if (grandParent.type.name == 'dl' && dispatch) {
-      console.log('dl', $from, node, grandParent)
+      console.log('dl', $from, grandParent, $from.node(-2), $from.node(-3))
     }
     if (grandParent.type.name == 'dd' && dispatch) {
       console.log('dd', $from, node, grandParent)
       if ($from.parent.content.size == 0) {
         
-        console.log($from, $to, $from.node(-2), $from.node(-3), state.schema.nodes)
+        console.log($from, $to, $from.node(-2), $from.node(-3))
         
         //let tr = state.tr.delete($from.pos, $to.pos)
 
         let tr = state.tr.insert($to.pos + 2, state.schema.nodes.paragraph.createAndFill())
         
-
-        if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($to.pos + 2)))).scrollIntoView())
+        if (dispatch) dispatch(tr.setSelection(new TextSelection(tr.doc.resolve($to.pos + 2))).scrollIntoView())
         return true
         
 
