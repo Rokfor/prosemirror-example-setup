@@ -225,6 +225,21 @@ function addMarker(markType) {
   })
 }
 
+function insertTextFragment(text) {
+  return new MenuItem({
+    title: "Insert a Latex Line Break",
+    label: "Linebreak",
+    icon: icons.mark,
+    active() { return true },
+    run(state, dispatch, view) {
+      const textNode = state.schema.text(text)
+      const tr = view.state.tr.replaceSelectionWith(textNode)
+      dispatch(tr)
+      view.focus()
+    }
+  })
+}
+
 
 function wrapListItem(nodeType, options) {
   return cmdItem(wrapInList(nodeType, options.attrs), options)
@@ -430,7 +445,7 @@ export function buildMenuItems(schema) {
     r.toggleBibliography = bibliographyItem(type)
 
 
-
+  r.addLatexBreak = insertTextFragment('\\\\');
 
   let cut = arr => arr.filter(x => x)
   
@@ -457,7 +472,8 @@ export function buildMenuItems(schema) {
     r.toggleReference,
     r.toggleFn,
     r.toggleLanguage,
-    r.toggleBibliography 
+    r.toggleBibliography,
+    r.addLatexBreak
   ]), {label: "Special"})
 
 
