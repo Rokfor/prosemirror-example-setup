@@ -160,6 +160,34 @@ function addReference(markType) {
   })
 }
 
+function addImageReference(markType) {
+  return new MenuItem({
+    title: "Add a image reference",
+    label: "image reference",
+    icon: icons.reference,
+    active(state) { return markActive(state, markType) },
+    run(state, dispatch, view) {
+      if (markActive(state, markType)) {
+        toggleMark(markType)(state, dispatch)
+        return true
+      }
+      openPrompt({
+        title: "Add a cross reference pointing to a image.",
+        fields: {
+          reference: new SelectField({
+            options: document.attachements || []}
+          )
+        },
+        callback(attrs) {
+          toggleMark(markType, attrs)(view.state, view.dispatch)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference)) 
+          view.dispatch(tr)
+          view.focus()
+        }
+      })
+    }
+  })
+}
 
 function bibliographyItem(markType) {
   return new MenuItem({
@@ -439,6 +467,8 @@ export function buildMenuItems(schema) {
     r.toggleMark = addMarker(type)
   if (type = schema.marks.reference)
     r.toggleReference = addReference(type)
+  if (type = schema.marks.imagereference)
+    r.toggleImageReference = addImageReference(type)    
   if (type = schema.marks.fn)
     r.toggleFn = markItem(type, {title: "Inline Footnote", icon: icons.fn})
   if (type = schema.marks.bibliography)
@@ -470,6 +500,7 @@ export function buildMenuItems(schema) {
     r.toggleIndex,
     r.toggleMark,
     r.toggleReference,
+    r.toggleImageReference,
     r.toggleFn,
     r.toggleLanguage,
     r.toggleBibliography,
