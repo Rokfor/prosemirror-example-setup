@@ -163,7 +163,7 @@ function addReference(markType) {
 function addImageReference(markType) {
   return new MenuItem({
     title: "Add a image reference",
-    label: "image reference",
+    label: "Image reference",
     icon: icons.reference,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
