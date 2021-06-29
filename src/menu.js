@@ -150,12 +150,9 @@ function addReference(markType) {
           )
         },
         callback(attrs) {
-          
           const mr = view.state.schema.mark(markType)
           const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), false) 
-          console.log(mr, tr)
           view.dispatch(tr)
-          // toggleMark(markType, attrs)(view.state, view.dispatch)          
           view.focus()
         }
       })
@@ -182,8 +179,8 @@ function addImageReference(markType) {
           )
         },
         callback(attrs) {
-          toggleMark(markType, attrs)(view.state, view.dispatch)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference)) 
+          const mr = view.state.schema.mark(markType)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), false) 
           view.dispatch(tr)
           view.focus()
         }
@@ -214,8 +211,8 @@ function bibliographyItem(markType) {
           post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
         },
         callback(attrs) {
-          toggleMark(markType, attrs)(view.state, view.dispatch)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference}, ${attrs.pre}, ${attrs.post}`)) 
+          const mr = view.state.schema.mark(markType)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference}, ${attrs.pre}, ${attrs.post}`, [mr]), false) 
           view.dispatch(tr)
           view.focus()
         }
@@ -245,10 +242,10 @@ function addMarker(markType) {
           document.marks = document.marks || [];
           if (document.marks.filter(x => x.value === attrs.src).length === 0) {
             document.marks.push({value: attrs.src,  label: attrs.src});
-            toggleMark(markType, attrs)(view.state, view.dispatch)
-            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src)) 
+            const mr = view.state.schema.mark(markType)
+            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src, [mr]), false) 
             view.dispatch(tr)
-            view.focus()
+            view.focus()            
           }
         }
       })
