@@ -150,7 +150,8 @@ function addReference(markType) {
           )
         },
         callback(attrs) {
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [markType])) 
+          const mr = view.state.schema.mark(markType)
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr])) 
           view.dispatch(tr)
           // toggleMark(markType, attrs)(view.state, view.dispatch)          
           view.focus()
