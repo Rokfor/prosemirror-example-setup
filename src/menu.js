@@ -211,7 +211,7 @@ function bibliographyItem(markType) {
           post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
         },
         callback(attrs) {
-          const mr = view.state.schema.mark(markType)
+          const mr = view.state.schema.mark(markType, attrs)
           const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference}, ${attrs.pre}, ${attrs.post}`, [mr]), false) 
           view.dispatch(tr)
           view.focus()
