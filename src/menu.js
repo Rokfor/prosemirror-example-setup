@@ -370,8 +370,8 @@ export function buildMenuItems(schema) {
     })
   if (type = schema.nodes.code_block)
     r.makeCodeBlock = blockTypeItem(type, {
-      title: "Change to poem block",
-      label: "Poem"
+      title: "Change to verbatim block",
+      label: "Verbatim"
     })
 
   if (type = schema.nodes.dl) {
