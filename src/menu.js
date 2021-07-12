@@ -267,7 +267,7 @@ function addIndex(markType) {
         return true
       }
       let tr = view.state.tr;
-      tr = tr.addStoredMark(markType.create(attrs))          
+      tr = tr.addStoredMark(markType.create())          
       view.dispatch(tr)
     }
   })
