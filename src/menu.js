@@ -151,7 +151,7 @@ function addReference(markType) {
         },
         callback(attrs) {
           const mr = view.state.schema.mark(markType)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), false) 
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), true) 
           view.dispatch(tr)
           view.focus()
         }
@@ -180,7 +180,7 @@ function addImageReference(markType) {
         },
         callback(attrs) {
           const mr = view.state.schema.mark(markType)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), false) 
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), true) 
           view.dispatch(tr)
           view.focus()
         }
@@ -212,7 +212,7 @@ function bibliographyItem(markType) {
         },
         callback(attrs) {
           const mr = view.state.schema.mark(markType, attrs)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference}, ${attrs.pre}, ${attrs.post}`, [mr]), false) 
+          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference}, ${attrs.pre}, ${attrs.post}`, [mr]), true) 
           view.dispatch(tr)
           view.focus()
         }
@@ -243,7 +243,7 @@ function addMarker(markType) {
           if (document.marks.filter(x => x.value === attrs.src).length === 0) {
             document.marks.push({value: attrs.src,  label: attrs.src});
             const mr = view.state.schema.mark(markType)
-            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src, [mr]), false) 
+            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src, [mr]), true) 
             view.dispatch(tr)
             view.focus()            
           }
