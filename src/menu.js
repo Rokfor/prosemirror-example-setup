@@ -213,6 +213,7 @@ function bibliographyItem(markType) {
         callback(attrs) {
           //const mr = view.state.schema.mark(markType, attrs)
           const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
+          view.dispatch(tr)
           toggleMark(markType, attrs)(view.state, view.dispatch)
           view.focus()
         }
