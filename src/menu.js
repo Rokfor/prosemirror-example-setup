@@ -255,24 +255,6 @@ function addMarker(markType) {
   })
 }
 
-function addIndex(markType) {
-  return new MenuItem({
-    title: "Add selection to index",
-    label: "Index",
-    icon: icons.index,
-    active(state) { return markActive(state, markType) },
-    run(state, dispatch, view) {
-      if (markActive(state, markType)) {
-        toggleMark(markType)(state, dispatch)
-        return true
-      }
-      let tr = view.state.tr;
-      tr = tr.addStoredMark(markType.create())          
-      view.dispatch(tr)
-    }
-  })
-}
-
 function insertTextFragment(text) {
   return new MenuItem({
     title: "Insert a Latex Line Break",
@@ -482,8 +464,7 @@ export function buildMenuItems(schema) {
     r.toggleLanguage = languageItem(type)
 
   if (type = schema.marks.index)
-    r.toggleIndex = addIndex(type)
-    //r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
+    r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
   if (type = schema.marks.mark)
     r.toggleMark = addMarker(type)
   if (type = schema.marks.reference)
