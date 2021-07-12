@@ -150,8 +150,9 @@ function addReference(markType) {
           )
         },
         callback(attrs) {
-          const mr = view.state.schema.mark(markType)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), true) 
+          let tr = view.state.tr;
+          tr = tr.addStoredMark(markType.create(attrs))          
+          tr = tr.replaceSelectionWith(view.state.schema.text(attrs.reference), true) 
           view.dispatch(tr)
           view.focus()
         }
@@ -179,8 +180,9 @@ function addImageReference(markType) {
           )
         },
         callback(attrs) {
-          const mr = view.state.schema.mark(markType)
-          const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.reference, [mr]), true) 
+          let tr = view.state.tr;
+          tr = tr.addStoredMark(markType.create(attrs))          
+          tr = tr.replaceSelectionWith(view.state.schema.text(attrs.reference), true) 
           view.dispatch(tr)
           view.focus()
         }
@@ -211,8 +213,6 @@ function bibliographyItem(markType) {
           post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
         },
         callback(attrs) {
-          //const mr = view.state.schema.mark(markType, attrs)
-          console.log('v.1')
           let tr = view.state.tr;
           tr = tr.addStoredMark(markType.create(attrs))          
           tr = tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
@@ -223,7 +223,6 @@ function bibliographyItem(markType) {
     }
   })
 }
-
 
 function addMarker(markType) {
   return new MenuItem({
@@ -245,10 +244,10 @@ function addMarker(markType) {
           document.marks = document.marks || [];
           if (document.marks.filter(x => x.value === attrs.src).length === 0) {
             document.marks.push({value: attrs.src,  label: attrs.src});
-            const mr = view.state.schema.mark(markType)
-            const tr = view.state.tr.replaceSelectionWith(view.state.schema.text(attrs.src, [mr]), true) 
+            let tr = view.state.tr;
+            tr = tr.addStoredMark(markType.create(attrs))          
+            tr = tr.replaceSelectionWith(view.state.schema.text(attrs.src), true) 
             view.dispatch(tr)
-            view.focus()            
           }
         }
       })
@@ -425,7 +424,7 @@ export function buildMenuItems(schema) {
 
   if (type = schema.nodes.footnote)
     r.makeFootnote = wrapItem(type, {
-      title: "Insert Footnote",
+      title: "Footnote Block",
       label: "Footnote"
     })
   
@@ -473,7 +472,7 @@ export function buildMenuItems(schema) {
   if (type = schema.marks.imagereference)
     r.toggleImageReference = addImageReference(type)    
   if (type = schema.marks.fn)
-    r.toggleFn = markItem(type, {title: "Inline Footnote", icon: icons.fn})
+    r.toggleFn = markItem(type, {title: "Footnote", icon: icons.fn})
   if (type = schema.marks.bibliography)
     r.toggleBibliography = bibliographyItem(type)
 
