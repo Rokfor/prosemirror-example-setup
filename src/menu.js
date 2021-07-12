@@ -419,14 +419,14 @@ export function buildMenuItems(schema) {
       run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.create())) }
     })
   }
-/*
+
   if (type = schema.nodes.footnote)
     r.makeFootnote = wrapItem(type, {
       title: "Insert Footnote",
       label: "Footnote"
-    })*/
+    })
   
-  if (type = schema.nodes.footnote) {
+  /*if (type = schema.nodes.footnote) {
     let fn = type
     r.makeFootnote = new MenuItem({
       title: "Insert Footnote",
@@ -438,7 +438,7 @@ export function buildMenuItems(schema) {
         dispatch(state.tr.replaceSelectionWith(fn.createAndFill(attrs)))
       }
     })
-  }
+  }*/
 
 
 
