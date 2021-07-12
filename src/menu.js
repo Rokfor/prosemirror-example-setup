@@ -213,7 +213,7 @@ function bibliographyItem(markType) {
         callback(attrs) {
           //const mr = view.state.schema.mark(markType, attrs)
           console.log('v.1')
-          let tr;
+          let tr = view.state.tr;
           tr = tr.addStoredMark(markType.create(attrs))          
           tr = view.state.tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
           view.dispatch(tr)
