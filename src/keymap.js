@@ -5,6 +5,7 @@ import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
 import {canSplit} from "prosemirror-transform"
 import {TextSelection} from "prosemirror-state"
+import {markItem, bibliographyItem} from "./menu"
 
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
@@ -107,6 +108,21 @@ export function buildKeymap(schema, mapKeys) {
   bind("Alt-ArrowDown", joinDown)
   bind("Mod-BracketLeft", lift)
   bind("Escape", selectParentNode)
+
+  if (type = schema.marks.bibliography) {
+    bind("Shift-Mod-b", bibliographyItem(type))
+    bind("Shift-Mod-B", bibliographyItem(type))
+  }
+  
+  if (type = schema.marks.index) {
+    bind("Shift-Mod-i", markItem(type, {title: "Index", icon: icons.index}))
+    bind("Shift-Mod-I", markItem(type, {title: "Index", icon: icons.index}))
+  }
+
+  if (type = schema.marks.fn) {
+    bind("Shift-Mod-F", markItem(type, {title: "Footnote", icon: icons.fn}))
+    bind("Shift-Mod-f", markItem(type, {title: "Footnote", icon: icons.fn}))
+  }
 
   if (type = schema.marks.strong) {
     bind("Mod-b", toggleMark(type))
