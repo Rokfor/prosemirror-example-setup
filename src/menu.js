@@ -194,7 +194,7 @@ function addImageReference(markType) {
 function bibliographyItem(markType) {
   return new MenuItem({
     title: "Add bibliographical reference",
-    label: "Literature",
+    label: "Literature (Shift-cmd-e)",
     icon: icons.literature,
     active(state) { return markActive(state, markType) },
     run(state, dispatch, view) {
@@ -472,7 +472,7 @@ export function buildMenuItems(schema) {
   if (type = schema.marks.imagereference)
     r.toggleImageReference = addImageReference(type)    
   if (type = schema.marks.fn)
-    r.toggleFn = markItem(type, {title: "Footnote", icon: icons.fn})
+    r.toggleFn = markItem(type, {title: "Footnote (Shift-cmd-f)", icon: icons.fn})
   if (type = schema.marks.bibliography)
     r.toggleBibliography = bibliographyItem(type)
 
