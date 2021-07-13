@@ -10,23 +10,24 @@ import {TextField, SelectField, openPrompt} from "./prompt"
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
 
 
-function addBibliography(markType) {
-  let attrs = null;
-  openPrompt({
-    title: "Add literature reference",
-    fields: {
-      reference: new SelectField({options: document.bibTex, value: attrs && attrs.reference}),
-      pre: new TextField({label: "Pre-Text", value: attrs && attrs.pre}),
-      post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
-    },
-    callback(attrs) {
-      let tr = view.state.tr;
-      tr = tr.addStoredMark(markType.create(attrs))          
-      tr = tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
-      view.dispatch(tr)
-      view.focus()
-    }
-  })
+function addBibliography(markType, attrs) {
+  return function (state, dispatch) {
+    openPrompt({
+      title: "Add literature reference",
+      fields: {
+        reference: new SelectField({options: document.bibTex, value: attrs && attrs.reference}),
+        pre: new TextField({label: "Pre-Text", value: attrs && attrs.pre}),
+        post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
+      },
+      callback(attrs) {
+        let tr = state.tr;
+        tr = tr.addStoredMark(markType.create(attrs))          
+        tr = tr.replaceSelectionWith(state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
+        dispatch(tr)
+        return true
+      }
+    })
+  }
 }
 
 function splitDefinitionList(itemType, nodes) {
