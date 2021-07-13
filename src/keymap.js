@@ -24,7 +24,8 @@ function addBibliography(markType) {
       tr = tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
       view.dispatch(tr)
       view.focus()
-    })
+    }
+  })
 }
 
 function splitDefinitionList(itemType, nodes) {
