@@ -109,19 +109,10 @@ export function buildKeymap(schema, mapKeys) {
   bind("Mod-BracketLeft", lift)
   bind("Escape", selectParentNode)
 
-  if (type = schema.marks.bibliography) {
-    bind("Shift-Mod-b", bibliographyItem(type))
-    bind("Shift-Mod-B", bibliographyItem(type))
-  }
-  
-  if (type = schema.marks.index) {
-    bind("Shift-Mod-i", markItem(type))
-    bind("Shift-Mod-I", markItem(type))
-  }
 
   if (type = schema.marks.fn) {
-    bind("Mod-N", markItem(type))
-    bind("Mod-n", markItem(type))
+    bind("Shift-Mod-F", toggleMark(markType))
+    bind("Shift-Mod-f", toggleMark(markType))
   }
 
   if (type = schema.marks.strong) {
