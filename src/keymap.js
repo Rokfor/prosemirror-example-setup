@@ -11,6 +11,7 @@ const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : f
 
 
 function addBibliography(markType) {
+  let attrs = null;
   openPrompt({
     title: "Add literature reference",
     fields: {
