@@ -111,8 +111,8 @@ export function buildKeymap(schema, mapKeys) {
 
 
   if (type = schema.marks.fn) {
-    bind("Shift-Mod-F", toggleMark(markType))
-    bind("Shift-Mod-f", toggleMark(markType))
+    bind("Shift-Mod-F", toggleMark(type))
+    bind("Shift-Mod-f", toggleMark(type))
   }
 
   if (type = schema.marks.strong) {
