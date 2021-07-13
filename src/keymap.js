@@ -120,8 +120,8 @@ export function buildKeymap(schema, mapKeys) {
   }
 
   if (type = schema.marks.fn) {
-    bind("Shift-Mod-F", markItem(type))
-    bind("Shift-Mod-f", markItem(type))
+    bind("Mod-N", markItem(type))
+    bind("Mod-n", markItem(type))
   }
 
   if (type = schema.marks.strong) {
