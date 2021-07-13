@@ -33,7 +33,7 @@ function addBibliography(markType, attrs) {
 function insertTextFragment(text) {
   return function (state, dispatch) {
     const textNode = state.schema.text(text)
-    const tr = view.state.tr.replaceSelectionWith(textNode)
+    const tr = state.tr.replaceSelectionWith(textNode)
     dispatch(tr)
     return true
   }
@@ -138,7 +138,7 @@ export function buildKeymap(schema, mapKeys) {
   bind("Mod-BracketLeft", lift)
   bind("Escape", selectParentNode)
 
-  bind("Shift-Mod-Enter", insertTextFragment('­­'))
+  bind("Shift-Mod-Enter", insertTextFragment('­'))
 
   if (type = schema.marks.bibliography) {
     bind("Shift-Mod-e", addBibliography(type))

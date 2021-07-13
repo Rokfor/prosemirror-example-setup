@@ -483,7 +483,7 @@ export function buildMenuItems(schema) {
     icon: icons.mark
   });
 
-  r.addSoftHyphen = insertTextFragment('­­', {
+  r.addSoftHyphen = insertTextFragment('­', {
     title: "Insert a Soft Hyphen",
     label: "Soft Hyphen (Shift-Cmd-Enter)",
     icon: icons.mark
