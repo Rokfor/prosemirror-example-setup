@@ -464,7 +464,7 @@ export function buildMenuItems(schema) {
     r.toggleLanguage = languageItem(type)
 
   if (type = schema.marks.index)
-    r.toggleIndex = markItem(type, {title: "Index", icon: icons.index})
+    r.toggleIndex = markItem(type, {title: "Index (Shift-cmd-x)", icon: icons.index})
   if (type = schema.marks.mark)
     r.toggleMark = addMarker(type)
   if (type = schema.marks.reference)

@@ -133,7 +133,10 @@ export function buildKeymap(schema, mapKeys) {
     bind("Shift-Mod-e", addBibliography(type))
     bind("Shift-Mod-E", addBibliography(type))
   }
-
+  if (type = schema.marks.index) {
+    bind("Shift-Mod-x", toggleMark(type))
+    bind("Shift-Mod-X", toggleMark(type))
+  }
   if (type = schema.marks.fn) {
     bind("Shift-Mod-F", toggleMark(type))
     bind("Shift-Mod-f", toggleMark(type))
