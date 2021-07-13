@@ -42,7 +42,7 @@ function insertImageItem(nodeType) {
   })
 }
 
-export function cmdItem(cmd, options) {
+function cmdItem(cmd, options) {
   let passedOptions = {
     label: options.title,
     run: cmd
@@ -54,7 +54,7 @@ export function cmdItem(cmd, options) {
   return new MenuItem(passedOptions)
 }
 
-export function markActive(state, type) {
+function markActive(state, type) {
   let {from, $from, to, empty} = state.selection
   if (empty) return type.isInSet(state.storedMarks || $from.marks())
   else return state.doc.rangeHasMark(from, to, type)
