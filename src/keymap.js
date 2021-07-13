@@ -6,6 +6,7 @@ import {undoInputRule} from "prosemirror-inputrules"
 import {canSplit} from "prosemirror-transform"
 import {TextSelection} from "prosemirror-state"
 import {markItem, bibliographyItem} from "./menu"
+import {icons} from "prosemirror-menu"
 
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
