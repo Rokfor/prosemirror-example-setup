@@ -60,7 +60,7 @@ function markActive(state, type) {
   else return state.doc.rangeHasMark(from, to, type)
 }
 
-function markItem(markType, options) {
+export function markItem(markType, options) {
   let passedOptions = {
     active(state) { return markActive(state, markType) },
     enable: true
@@ -191,7 +191,7 @@ function addImageReference(markType) {
   })
 }
 
-function bibliographyItem(markType) {
+export function bibliographyItem(markType) {
   return new MenuItem({
     title: "Add bibliographical reference",
     label: "Literature",
