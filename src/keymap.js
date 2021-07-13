@@ -5,10 +5,27 @@ import {undo, redo} from "prosemirror-history"
 import {undoInputRule} from "prosemirror-inputrules"
 import {canSplit} from "prosemirror-transform"
 import {TextSelection} from "prosemirror-state"
-import {addBibliography} from "./menu"
-
+import {TextField, SelectField, openPrompt} from "./prompt"
 
 const mac = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false
+
+
+function addBibliography(markType) {
+  openPrompt({
+    title: "Add literature reference",
+    fields: {
+      reference: new SelectField({options: document.bibTex, value: attrs && attrs.reference}),
+      pre: new TextField({label: "Pre-Text", value: attrs && attrs.pre}),
+      post: new TextField({label: "Post-Text", value: attrs && attrs.post}),
+    },
+    callback(attrs) {
+      let tr = view.state.tr;
+      tr = tr.addStoredMark(markType.create(attrs))          
+      tr = tr.replaceSelectionWith(view.state.schema.text(`${attrs.reference} ${attrs.pre} ${attrs.post}`), true) 
+      view.dispatch(tr)
+      view.focus()
+    })
+}
 
 function splitDefinitionList(itemType, nodes) {
   return function (state, dispatch) {
