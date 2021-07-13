@@ -255,11 +255,11 @@ function addMarker(markType) {
   })
 }
 
-function insertTextFragment(text) {
+function insertTextFragment(text, options) {
   return new MenuItem({
-    title: "Insert a Latex Line Break",
-    label: "Linebreak",
-    icon: icons.mark,
+    title: options.title,
+    label: options.label,
+    icon: options.icon,
     active() { return true },
     run(state, dispatch, view) {
       const textNode = state.schema.text(text)
@@ -477,7 +477,17 @@ export function buildMenuItems(schema) {
     r.toggleBibliography = bibliographyItem(type)
 
 
-  r.addLatexBreak = insertTextFragment('\\\\');
+  r.addLatexBreak = insertTextFragment('\\\\', {
+    title: "Insert a Latex Line Break",
+    label: "Conditional Linebreak",
+    icon: icons.mark
+  });
+
+  r.addSoftHyphen = insertTextFragment('­­', {
+    title: "Insert a Soft Hyphen",
+    label: "Soft Hyphen (Shift-Cmd-Enter)",
+    icon: icons.mark
+  });
 
   let cut = arr => arr.filter(x => x)
   
@@ -506,7 +516,8 @@ export function buildMenuItems(schema) {
     r.toggleFn,
     r.toggleLanguage,
     r.toggleBibliography,
-    r.addLatexBreak
+    r.addLatexBreak,
+    r.addSoftHyphen
   ]), {label: "Special"})
 
 
